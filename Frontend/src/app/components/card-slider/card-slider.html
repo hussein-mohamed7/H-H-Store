@@ -1,0 +1,27 @@
+<div class="background">
+  <div class="button-left-container">
+    <button class="button" (click)="scrollLeft()">&lt;</button>
+  </div>
+
+  <div class="flex flex-row align-center gap-5 w-4/5 overflow-hidden scroll" (touchstart)="dragStart($event)" (mousedown)="dragStart($event)" (mousemove)="dragMove($event)" (mouseup)="dragStop()" #scrollContainer>
+    <app-card cardText="Hey" cardImg="https://static.wikia.nocookie.net/maid-dragon/images/5/57/Kanna_Anime.png/revision/latest?cb=20180225164809"></app-card>
+    <app-card></app-card>
+    <app-card></app-card>
+    <app-card></app-card>
+    <app-card></app-card>
+    <app-card></app-card>
+    <app-card></app-card>
+    <app-card></app-card>
+    <app-card></app-card>
+    <app-card></app-card>
+    <app-card></app-card>
+    <app-card></app-card>
+    <app-card></app-card>
+    <app-card></app-card>
+  </div>
+  <div class="button-right-container">
+    <button class="button" (click)="scrollRight()">&gt;</button>
+  </div>
+
+</div>
+

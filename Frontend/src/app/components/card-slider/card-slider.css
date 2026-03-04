@@ -1,0 +1,49 @@
+.scroll
+{
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  transition: all 0.3s;
+}
+
+.background
+{
+  background-color: #F5ECE6;
+  width: 100%;
+  height: 240px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button-left-container
+{
+  position: absolute;
+  display: flex;
+  left: 0px;
+  /* background-color: red; */
+  width: 100px;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.button-right-container
+{
+  position: absolute;
+  display: flex;
+  /* background-color: red; */
+  height: 100%;
+  width: 100px;
+  align-items: center;
+  justify-content: center;
+  right: 0px;
+}
+.button
+{
+  color: black;
+  font-size: 40px;
+  transition: all 0.3s;
+}
+.button:hover
+{
+  color:rgb(121, 120, 120)
+}
