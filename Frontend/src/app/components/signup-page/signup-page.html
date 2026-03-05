@@ -1,0 +1,64 @@
+<div class="grid grid-cols-1  md:grid-cols-2 gap-6 ">
+    <div>
+        <img src="/assets/LoginPage.png" alt="Login Page" class="w-full h-170 object-cover hidden md:block ">
+    </div>
+    <div class="flex flex-col gap-6 justify-center items-center rounded-2xl">
+        <h1 class="text-center text-black  text-4xl italic">H&H</h1>
+        <div>
+            <form class= " bg-white  rounded-2xl p-6 overflow-hidden shadow-2xl sm:mb-14 " [formGroup]="signupForm" (ngSubmit)="signup()">
+              <label class="block mb-1">User Name</label>
+                <input type="text" placeholder="Enter your user name" class="w-full border-2 rounded-md pl-4 pr-22 py-2 text-sm text-black  focus:outline-none focus:border-[#D93B3B]" formControlName="username">
+                <label class="block mb-1">Email</label>
+                <input type="text" placeholder="Enter your email" class="w-full border-2 rounded-md pl-4 pr-22 py-2 text-sm text-black  focus:outline-none focus:border-[#D93B3B]" formControlName="email">
+                @if(email?.touched && email?.errors?.["email"] || isDuplicate)
+                {
+                  <div class="w-full flex justify-start pt-2 text-[#D93B3B] text-xs">
+
+                    @if(isDuplicate)
+                    {
+                      Email is already in use
+                    }
+                    @else
+                    {
+                      Enter a valid email
+                    }
+                  </div>
+
+                }
+
+                <label class="block mb-1">Password</label>
+                <input type="password" placeholder="Enter your password" class="w-full border-2 rounded-md pl-4 pr-22 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]" formControlName="password">
+                @if(password?.errors?.["minlength"])
+                {
+                    <div class="w-full flex justify-start pt-2 text-[#D93B3B] text-xs">
+                          Passwords Must Be At Least 8 Characters
+                    </div>
+                }
+                <label class="block mb-1">Re-Password</label>
+                <input type="password" placeholder="Renter your password" class="w-full border-2 rounded-md pl-4 pr-22 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]" formControlName="repassword">
+                @if(password?.touched && repassword?.touched)
+                    {
+                        @if(!password?.errors?.["minlength"] && signupForm?.errors?.["unMatchedPassword"])
+                        {
+                          <div class="w-full flex justify-start pt-2 text-[#D93B3B] text-xs">
+                          Passwords Must Match
+                          </div>
+                        }
+
+                    }
+                <div class="w-full flex justify-start pt-2 text-[#D93B3B]"></div>
+
+
+
+                <button type="submit" class="btn w-full bg-[#D93B3B] py-2 rounded-md mt-2 text-white hover:bg-[#D93B3B]
+                 hover:scale-105 hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                 [attr.disabled]="signupForm.invalid ? '':null"
+                 >SIGN UP</button>
+                <div class="w-full flex justify-center pt-4">
+                    <p>Already have an account? <a routerLink="/login" class=" underline text-[#D93B3B] hover:cursor-pointer">Login</a></p>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

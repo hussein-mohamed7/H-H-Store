@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { Navbar } from '../navbr/navbar';
 import { CommonModule } from '@angular/common';
-import { Footer } from '../footer/footer';
-import { LoginForm } from '../login-form/login-form';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
-  imports: [Navbar, Footer,CommonModule,LoginForm],
+  imports: [CommonModule,RouterLink],
   templateUrl: './login-page.html',
   styleUrl: './login-page.css',
 })
