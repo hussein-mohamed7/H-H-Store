@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { Navbr } from "../navbr/navbr";
+import { Navbar } from "../navbr/navbar";
 import { Footer } from "../footer/footer";
 import { CommonModule } from '@angular/common';
+import { ProductCategories } from "../product-categories/product-categories";
 
 @Component({
   selector: 'app-home-page',
-  imports: [CommonModule, Navbr, Footer],
+  imports: [CommonModule, Navbar, Footer, ProductCategories ],
   templateUrl: './home-page.html',
   styleUrl: './home-page.css',
 })
