@@ -1,9 +1,28 @@
+@switch(verificationStatus)
+{
+
+  @case (1){
+    <app-email-verification-popup color="r" topMessage="Failed" message="Verify email first."></app-email-verification-popup>
+  }
+  @case (2)
+  {
+    <app-email-verification-popup color="y" topMessage="Signup Done!" message="Verification Email Sent."></app-email-verification-popup>
+  }
+  @case (3)
+  {
+    <app-email-verification-popup color="g" topMessage="Success!" message="Email verified!"></app-email-verification-popup>
+  }
+}
+
+
+
 <div class="grid grid-cols-1  md:grid-cols-2 gap-6 ">
     <div>
         <img src="/assets/LoginPage.png" alt="Login Page" class="w-full h-170 object-cover hidden md:block ">
     </div>
     <div class="flex flex-col gap-6 justify-center items-center rounded-2xl">
         <h1 class="text-center text-black  text-4xl italic">H&H</h1>
+
         <div>
             <form class= " bg-white  rounded-2xl p-6 overflow-hidden shadow-2xl sm:mb-14 ">
                 <label class="block mb-1">Email</label>

@@ -1,10 +1,25 @@
-<div class="background">
-  <div class="button-left-container">
-    <button class="button" (click)="scrollLeft()">&lt;</button>
+
+
+<div class="relative flex items-center justify-center w-full h-[340px] bg-[#F5ECE6]">
+
+  <div class="absolute left-0 flex items-center justify-center w-[100px] h-full">
+    <button
+      class="text-[40px] text-black transition-all duration-300 hover:text-[#797878]"
+      (click)="scrollLeft()">
+      &lt;
+    </button>
   </div>
 
-  <div class="flex flex-row align-center gap-5 w-4/5 overflow-hidden scroll" (touchstart)="dragStart($event)" (mousedown)="dragStart($event)" (mousemove)="dragMove($event)" (mouseup)="dragStop()" #scrollContainer>
-    <app-card cardText="Hey" cardImg="https://static.wikia.nocookie.net/maid-dragon/images/5/57/Kanna_Anime.png/revision/latest?cb=20180225164809"></app-card>
+  <div
+    #scrollContainer
+    class="flex flex-row flex-nowrap items-center gap-5 w-4/5 overflow-hidden snap-x snap-mandatory scroll-smooth transition-all duration-300"
+    (touchstart)="dragStart($event)"
+    (mousedown)="dragStart($event)"
+    (mousemove)="dragMove($event)"
+    (mouseup)="dragStop()">
+    <app-card cardImg="/assets/1.png"></app-card>
+    <app-card cardImg="/assets/2.png"></app-card>
+    <app-card cardImg="/assets/3.png"></app-card>
     <app-card></app-card>
     <app-card></app-card>
     <app-card></app-card>
@@ -15,13 +30,14 @@
     <app-card></app-card>
     <app-card></app-card>
     <app-card></app-card>
-    <app-card></app-card>
-    <app-card></app-card>
-    <app-card></app-card>
-  </div>
-  <div class="button-right-container">
-    <button class="button" (click)="scrollRight()">&gt;</button>
+    </div>
+
+  <div class="absolute right-0 flex items-center justify-center w-[100px] h-full">
+    <button
+      class="text-[40px] text-black transition-all duration-300 hover:text-[#797878]"
+      (click)="scrollRight()">
+      &gt;
+    </button>
   </div>
 
 </div>
-

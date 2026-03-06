@@ -5,11 +5,24 @@ const bodyParser = require("body-parser");
 const argon2 = require("argon2");
 const cors = require("cors");
 const jwt = require("jsonwebtoken")
+const nodemailer = require("nodemailer");
 const {productController} = require("./controllers/productController")
 const {userController} = require("./controllers/userController");
 const app = express();
 
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: '202004410@pua.edu.eg',
+        pass: process.env.mailPass
+    }
+});
+
 mongoose.connect(process.env.connectionString);
+
+
+
+
 app.use(bodyParser.json());
 app.use(cors({ origin: 'http://localhost:4200'}));
 app.get("/users",async (req,res)=>
@@ -44,10 +57,47 @@ app.post("/signup",async (req,res)=>{
     else{
         const hashedPassword = await argon2.hash(req.body.password);
         const user = await userController.addUser({username:req.body.username,password:hashedPassword,email:req.body.email,isAdmin:false,isVerified:false});
-        const token = jwt.sign({id:user._id.toString(),username:user.username},process.env.jwtKey);
+        const token = jwt.sign({_id:user._id.toString(),username:user.username},process.env.jwtKey);
         console.log(user._id.toString());
         console.log(token);
-        res.send({token,isDuplicate:false});
+        // Create email verification.
+        const mailOptions = {
+            from: '"Email Authentication" <202004410@pua.edu.eg>', 
+            to: 'haz25ayman@gmail.com',
+            subject: `${user.username}, verify your email to use your account.`, 
+            html: `<a href="http://localhost:4200/verify/${token}">Verify Email</a>` 
+        };
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return console.log(error);
+            }
+            console.log('Message %s sent: %s', info.messageId, info.response);
+        });
+
+        res.send({isDuplicate:false});
+    }
+    
+});
+
+app.get("/verify/:Token",async (req,res)=>{
+    const Token = req.params.Token;
+    if(Token)
+    {
+        jwt.verify(Token,process.env.jwtKey,async (err,user)=>
+        {
+            if(err)
+            {
+                console.log(err);
+            }
+            console.log(user);
+            const result = await userController.verify(user._id);
+            // console.log(result);
+            res.send({verified:true});
+        });
+    }
+    else
+    {
+        res.send({verified:false});
     }
     
 });

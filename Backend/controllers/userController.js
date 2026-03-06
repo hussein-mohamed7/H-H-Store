@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const {Users} = require("../models/Users");
 
 async function getAll()
@@ -29,7 +30,8 @@ async function addUser(user)
 }
 async function verify(ID)
 {
-
+    console.log(ID);
+    return await Users.updateOne({_id:new mongoose.Types.ObjectId(ID)},{$set:{isVerified:true}});
 }
 const userController={};
 userController.getAll = getAll;
@@ -38,4 +40,5 @@ userController.getByID = getByID;
 userController.addUser = addUser;
 userController.deleteByID = deleteByID;
 userController.getByEmail = getByEmail;
+userController.verify = verify;
 module.exports = {userController};

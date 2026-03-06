@@ -1,0 +1,5 @@
+<div class="w-50 h-20  rounded-2xl absolute top-30 left-1/2 transform -translate-x-1/2" [style.backgroundColor]="'#'+bgColor" #card>
+  <p class="absolute right-5 top-2 text-xl flex justify-center items-center border rounded-2xl w-5 h-5 pb-1" (mouseover)="hovering=true" (mouseout)="hovering=false" [ngStyle]="{'background-color': hovering ? '#'+hoverColor:'#'+bgColor}" (click)="card.style.display='none'">x</p>
+  <p class="pl-5 py-2 w-1/1 text-lg font-bold">{{topMessage}}</p>
+  <p class="pl-5 w-full">{{message}}</p>
+</div>
