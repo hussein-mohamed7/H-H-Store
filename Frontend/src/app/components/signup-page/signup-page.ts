@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
-import { ParseSourceFile } from '@angular/compiler';
 import { passwordMatched } from '../../validators/passwordMatch';
 import { HttpClient } from '@angular/common/http';
 @Component({
