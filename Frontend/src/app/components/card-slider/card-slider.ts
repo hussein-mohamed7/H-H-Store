@@ -44,7 +44,7 @@ export class CardSlider implements OnInit, AfterViewInit {
   }
   scrollRight():void
   {
-    this.scrollElement.scrollBy({left:1000});
+    this.scrollElement.scrollBy({left:200});
   }
   scrollLeft():void
   {

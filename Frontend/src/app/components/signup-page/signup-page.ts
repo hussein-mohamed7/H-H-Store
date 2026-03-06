@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
 import { passwordMatched } from '../../validators/passwordMatch';
 import { HttpClient } from '@angular/common/http';
@@ -14,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 export class SignupPage implements OnInit {
   signupForm!:FormGroup;
   isDuplicate:boolean=false;
-  constructor(private auth:AuthService,private builder:FormBuilder,private client:HttpClient,private c:ChangeDetectorRef){}
+  constructor(private auth:AuthService,private builder:FormBuilder,private client:HttpClient,private c:ChangeDetectorRef,private router:Router){}
   ngOnInit(): void {
     this.signupForm=this.builder.group({
     username:["",[Validators.required]],
@@ -51,7 +51,8 @@ export class SignupPage implements OnInit {
         }
         else
         {
-          alert("Token received:"+res.token);
+          this.auth.verificationStatus.set(2);
+          this.router.navigateByUrl("/login");
         }
         this.c.markForCheck();
       }
