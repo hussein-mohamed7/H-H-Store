@@ -111,5 +111,17 @@ app.post("/addProduct",async (req,res)=>
 {
     console.log(req.body.product);
     let result = await productController.addProduct(req.body.product);
+    res.send({done:true});
+});
+app.get("/products",async (req,res)=>
+{
+    const products = await productController.getAll();
+    res.send(products);
+})
+app.get("/product/:ID",async (req,res)=>
+{
+
+    const product = await productController.getByID(req.params.ID);
+    res.send(product);
 });
 app.listen(8000);

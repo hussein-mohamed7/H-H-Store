@@ -1,4 +1,4 @@
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 const {Users} = require("../models/Users");
 
 async function getAll()
@@ -12,7 +12,7 @@ async function getByCategory()
 async function getByID(ID)
 {
     console.log(ID);
-    return await Users.find({_id:ID}).lean();
+    return await Users.find({_id:new mongoose.Types.ObjectId(ID)}).lean();
 };
 async function getByEmail(Email)
 {

@@ -1,8 +1,9 @@
+const mongoose = require("mongoose");
 const {Products} = require("../models/Products");
 
 async function getAll()
 {
-
+    return await Products.find({}).lean();
 }
 async function getByCategory()
 {
@@ -10,7 +11,7 @@ async function getByCategory()
 }
 async function getByID(ID)
 {
-
+    return await Products.find({_id: new mongoose.Types.ObjectId(ID)});
 };
 
 async function deleteByID(ID)
