@@ -25,6 +25,8 @@ mongoose.connect(process.env.connectionString);
 
 app.use(bodyParser.json());
 app.use(cors({ origin: 'http://localhost:4200'}));
+
+// User endpoints
 app.get("/users",async (req,res)=>
 {
     let results = await userController.getAll();
@@ -100,5 +102,14 @@ app.get("/verify/:Token",async (req,res)=>{
         res.send({verified:false});
     }
     
+});
+
+
+// Product endpoints
+
+app.post("/addProduct",async (req,res)=>
+{
+    console.log(req.body.product);
+    let result = await productController.addProduct(req.body.product);
 });
 app.listen(8000);

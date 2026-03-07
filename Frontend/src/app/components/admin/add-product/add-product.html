@@ -1,5 +1,4 @@
 <div class="flex flex-col md:flex-row min-h-screen gap-4">
-
     <div class="bg-black w-full md:w-60 p-6 overflow-auto shadow-2xl flex flex-col gap-3">
             <img src="/assets/LoginPage.png" alt="Login Page" class="w-32 mb-5 rounded-md">
             <hr class="border-white mb-5">
@@ -41,27 +40,25 @@
             </h1>
     </div>
 
-    <div class="flex-1 flex items-center justify-center my-14"> <!--flex-1 is Tailwind shorthand for flex-grow: 1; flex-shrink: 1; flex-basis: 0;-->
+    <form class="w-full" [formGroup]="adminAddProduct" (ngSubmit)="add()">
+          <div class="flex-1 flex items-center justify-center my-14"> <!--flex-1 is Tailwind shorthand for flex-grow: 1; flex-shrink: 1; flex-basis: 0;-->
         <div class="bg-white w-full md:w-3/5 rounded-2xl p-6 shadow-2xl overflow-auto">
         <h1 class="font-bold text-4xl mb-6 text-center">Add Products</h1>
 
         <label class="block mb-2">Product Name</label>
-        <input type="text" placeholder="Enter product name" class="w-full border-2 rounded-md px-4 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]">
+        <input type="text" placeholder="Enter product name" class="w-full border-2 rounded-md px-4 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]" formControlName="name">
 
         <label class="block mb-2 mt-4">Product Price</label>
-        <input type="text" placeholder="Enter product price" class="w-full border-2 rounded-md px-4 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]">
+        <input type="text" placeholder="Enter product price" class="w-full border-2 rounded-md px-4 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]" formControlName="price">
 
         <label class="block mb-2 mt-4">Quantity</label>
-        <input type="text" placeholder="Enter quantity" class="w-full border-2 rounded-md px-4 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]">
-
-        <label class="block mb-2 mt-4">Product Description</label>
-        <input type="text" placeholder="Enter product description" class="w-full border-2 rounded-md px-4 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]">
+        <input type="text" placeholder="Enter quantity" class="w-full border-2 rounded-md px-4 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]" formControlName="quantity">
 
         <label class="block mb-2 mt-4">Image URL</label>
-        <input type="text" placeholder="Enter product image" class="w-full border-2 rounded-md px-4 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]">
+        <input type="text" placeholder="Enter product image" class="w-full border-2 rounded-md px-4 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]" formControlName="imageURL">
 
         <label class="block mb-2 mt-4">Category</label>
-        <select class="w-full border-2 rounded-md px-4 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]">
+        <select class="w-full border-2 rounded-md px-4 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]" formControlName="category">
         <option value="" disabled selected>Select a category</option>
         <option value="electronics">Electronics</option>
         <option value="fashion">Fashion</option>
@@ -69,9 +66,24 @@
         <option value="home">Home</option>
         <option value="toys">Toys</option>
         </select>
-        <button type="submit" class="w-full bg-[#D93B3B] hover:bg-[#b22b2b] py-2 rounded-md mt-6 text-white font-semibold transition transform hover:scale-105">
+
+        <label class="block mb-2 mt-4">Gender</label>
+        <select class="w-full border-2 rounded-md px-4 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]" formControlName="gender">
+        <option value="" disabled selected>Select a gender</option>
+        <option value="m">Male</option>
+        <option value="f">Female</option>
+        </select>
+
+        <label class="block mb-2 mt-4">Product Description</label>
+        <textarea type="text" placeholder="Enter product description" class="w-full border-2 rounded-md px-4 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]" formControlName="description"></textarea>
+        <button type="submit" class="btn w-full bg-[#D93B3B] py-2 rounded-md mt-2 text-white hover:bg-[#D93B3B]
+                 hover:scale-105 hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                 [attr.disabled]="adminAddProduct.invalid ? '':null"
+        >
             ADD
         </button>
         </div>
     </div>
+    </form>
+
 </div>

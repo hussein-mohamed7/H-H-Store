@@ -7,6 +7,7 @@ const userSchema = Schema(
         email:String,
         isAdmin:Boolean,
         isVerified:Boolean,
+        reviews:[String]
     }
 )
 
