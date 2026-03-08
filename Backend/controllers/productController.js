@@ -20,7 +20,7 @@ async function getByID(ID)
 
 async function deleteByID(ID)
 {
-
+    return await Products.deleteOne({_id: new mongoose.Types.ObjectId(ID)});
 }
 
 async function addProduct(product)

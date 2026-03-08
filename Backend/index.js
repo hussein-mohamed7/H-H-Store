@@ -130,4 +130,9 @@ app.get("/product/:ID",async (req,res)=>
     res.send(product);
 });
 
+app.delete("/product/:ID",async (req,res)=>{
+    const deleteResult = await productController.deleteByID(req.params.ID);
+    res.send(deleteResult);
+});
+
 app.listen(8000);

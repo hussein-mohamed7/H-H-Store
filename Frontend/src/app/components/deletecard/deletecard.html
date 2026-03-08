@@ -1,6 +1,6 @@
 <div class="relative flex w-[250px] h-[300px] rounded-[10px] overflow-hidden select-none snap-center zoom">
     <button class="absolute top-2 right-2 z-10  text-white p-2 rounded-xl bg-red-600 hover:scale-110 ">
-    <i class="fa-solid fa-trash"></i>
+    <i class="fa-solid fa-trash" (click)="deleteProduct()"></i>
     </button>
     <img
         [src]="cardImg || 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-3.png'"

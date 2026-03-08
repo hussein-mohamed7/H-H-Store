@@ -26,4 +26,5 @@ export class DeleteCardSlider implements OnInit {
         this.page++;
       });
   }
+
 }

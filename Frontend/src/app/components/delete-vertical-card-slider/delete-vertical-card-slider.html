@@ -3,7 +3,7 @@
 
     @for(product of products();track product._id)
     {
-        <app-delete-card [cardImg]="product.imageURL" [cardText]="product.name" routerLink="/update/product/{{product._id}}"></app-delete-card>
+        <app-delete-card [cardImg]="product.imageURL" [cardText]="product.name"  [cardId] = "product._id" > </app-delete-card>
     }
 
     </div>
