@@ -8,6 +8,7 @@ import { UpdateProduct } from './components/admin/update-product/update-product'
 import { Users } from './components/admin/users/users';
 
 import { VerifyEmail } from './components/verify-email/verify-email';
+import { VerticalCardSlider } from './components/vertical-card-slider/vertical-card-slider';
 export const routes: Routes = [
     {path:'add', component: AddProduct},
     {path:'update', component:UpdateProduct },
@@ -21,6 +22,12 @@ export const routes: Routes = [
     },
     {
       path:'verify/:Token',component:VerifyEmail
+    }
+    ,
+    {
+      path:'test',
+      loadComponent:()=>import("./components/vertical-card-slider/vertical-card-slider").then(c=>c.VerticalCardSlider),
+      data:{preload:true}
     }
 
 ];

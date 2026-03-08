@@ -5,6 +5,10 @@ async function getAll()
 {
     return await Products.find({}).lean();
 }
+async function getByPage(pageNum)
+{
+    return await Products.find({}).skip(pageNum*6).limit(6).lean();
+}
 async function getByCategory()
 {
 
@@ -24,11 +28,5 @@ async function addProduct(product)
     product.rating=0;
     return await Products.create(product);
 }
-const productController={};
-productController.getAll = getAll;
-productController.getByCategory = getByCategory;
-productController.getByID = getByID;
-productController.deleteByID = deleteByID;
-productController. addProduct =  addProduct;
 
-module.exports = {productController};
+module.exports = {getAll,getByCategory,getByPage,getByID,deleteByID,addProduct};

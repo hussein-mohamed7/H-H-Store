@@ -12,4 +12,12 @@ export class ProductManager {
   {
     return this.client.post("http://localhost:8000/addProduct",{product:product});
   }
+  getAll():Observable<any>
+  {
+    return this.client.get("http://localhost:8000/products");
+  }
+  getByPage(page:number)
+  {
+    return this.client.get(`http://localhost:8000/products/${page}`);
+  }
 }
