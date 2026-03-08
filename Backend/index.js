@@ -6,7 +6,7 @@ const argon2 = require("argon2");
 const cors = require("cors");
 const jwt = require("jsonwebtoken")
 const nodemailer = require("nodemailer");
-const {productController} = require("./controllers/productController")
+const productController = require("./controllers/productController")
 const {userController} = require("./controllers/userController");
 const app = express();
 
@@ -25,6 +25,8 @@ mongoose.connect(process.env.connectionString);
 
 app.use(bodyParser.json());
 app.use(cors({ origin: 'http://localhost:4200'}));
+
+// User endpoints
 app.get("/users",async (req,res)=>
 {
     let results = await userController.getAll();
@@ -101,4 +103,31 @@ app.get("/verify/:Token",async (req,res)=>{
     }
     
 });
+
+
+// Product endpoints
+
+app.post("/addProduct",async (req,res)=>
+{
+    console.log(req.body.product);
+    let result = await productController.addProduct(req.body.product);
+    res.send({done:true});
+});
+app.get("/products",async (req,res)=>
+{
+    const products = await productController.getAll();
+    res.send(products);
+})
+app.get("/products/:page",async(req,res)=>
+{
+    const products = await productController.getByPage(req.params.page);
+    res.send(products);
+})
+app.get("/product/:ID",async (req,res)=>
+{
+
+    const product = await productController.getByID(req.params.ID);
+    res.send(product);
+});
+
 app.listen(8000);
