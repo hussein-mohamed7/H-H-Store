@@ -13,6 +13,9 @@ import { CategoriesPage } from './components/categories-page/categories-page';
 import { Updatesearch } from './components/admin/updatesearch/updatesearch';
 import { Deleteproduct } from './components/admin/deleteproduct/deleteproduct';
 import { SearchPage } from './components/search-page/search-page';
+import { ConfirmLogin } from './components/confirm-login/confirm-login';
+import { ProductDetails } from './components/product-details/product-details';
+import { Cart } from './components/cart/cart';
 export const routes: Routes = [
     {path:'add', component: AddProduct},
     {path:'update', component:Updatesearch },
@@ -26,7 +29,10 @@ export const routes: Routes = [
         {path:"signup",component: SignupPage},
         {path:"categories",component:CategoriesPage},
         {path:"search/:Gender/:Query",component:SearchPage},
-        {path:"search/:Query",component:SearchPage}
+        {path:"search/:Query",component:SearchPage},
+        {path:'confirm',component : ConfirmLogin},
+        {path : 'product',component:ProductDetails},
+        {path:'cart',component: Cart}
       ]
     },
     {
