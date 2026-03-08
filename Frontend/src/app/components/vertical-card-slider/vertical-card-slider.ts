@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, signal }
 import { Card } from '../card/card';
 import { ProductManager } from '../../services/product-manager';
 import { IProduct } from '../../interfaces/iproduct';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-vertical-card-slider',
-  imports: [Card],
+  imports: [Card,RouterModule],
   templateUrl: './vertical-card-slider.html',
   styleUrl: './vertical-card-slider.css',
   changeDetection:ChangeDetectionStrategy.OnPush

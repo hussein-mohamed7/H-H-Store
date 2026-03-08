@@ -8,13 +8,14 @@ import { UpdateProduct } from './components/admin/update-product/update-product'
 import { Users } from './components/admin/users/users';
 
 import { VerifyEmail } from './components/verify-email/verify-email';
-<<<<<<< HEAD
-=======
 import { VerticalCardSlider } from './components/vertical-card-slider/vertical-card-slider';
->>>>>>> cb05df8bdc095a6cd6c59d0518365e3c33fc3477
+import { Updatesearch } from './components/admin/updatesearch/updatesearch';
+import { Deleteproduct } from './components/admin/deleteproduct/deleteproduct';
 export const routes: Routes = [
     {path:'add', component: AddProduct},
-    {path:'update', component:UpdateProduct },
+    {path:'update', component:Updatesearch },
+    {path:'update/product/:id', component:UpdateProduct},
+    {path:'delete',component:Deleteproduct},
     {path:'Users',component:Users},
     { path: '', component: NavFooterContainer,children:
       [
@@ -25,15 +26,12 @@ export const routes: Routes = [
     },
     {
       path:'verify/:Token',component:VerifyEmail
-<<<<<<< HEAD
-=======
     }
     ,
     {
       path:'test',
       loadComponent:()=>import("./components/vertical-card-slider/vertical-card-slider").then(c=>c.VerticalCardSlider),
       data:{preload:true}
->>>>>>> cb05df8bdc095a6cd6c59d0518365e3c33fc3477
     }
 
 ];
