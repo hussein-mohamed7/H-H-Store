@@ -10,9 +10,13 @@ import { Users } from './components/admin/users/users';
 import { VerifyEmail } from './components/verify-email/verify-email';
 import { VerticalCardSlider } from './components/vertical-card-slider/vertical-card-slider';
 import { CategoriesPage } from './components/categories-page/categories-page';
+import { Updatesearch } from './components/admin/updatesearch/updatesearch';
+import { Deleteproduct } from './components/admin/deleteproduct/deleteproduct';
 export const routes: Routes = [
     {path:'add', component: AddProduct},
-    {path:'update', component:UpdateProduct },
+    {path:'update', component:Updatesearch },
+    {path:'update/product/:id', component:UpdateProduct},
+    {path:'delete',component:Deleteproduct},
     {path:'Users',component:Users},
     { path: '', component: NavFooterContainer,children:
       [

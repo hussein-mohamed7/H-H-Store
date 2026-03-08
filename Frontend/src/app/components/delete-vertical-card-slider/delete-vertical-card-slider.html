@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="cards-container">
+
+    @for(product of products();track product._id)
+    {
+        <app-delete-card [cardImg]="product.imageURL" [cardText]="product.name"  [cardId] = "product._id" > </app-delete-card>
+    }
+
+    </div>
+<button class="w-full bg-[#D93B3B] hover:bg-[#D93B3B] py-2 rounded-md mt-2 text-white hover:scale-105 hover:cursor-pointer " (click)="loadProducts()">Show More</button>
+
+</div>

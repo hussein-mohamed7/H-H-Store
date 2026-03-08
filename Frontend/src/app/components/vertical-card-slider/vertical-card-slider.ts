@@ -3,10 +3,11 @@ import { Card } from '../card/card';
 import { ProductManager } from '../../services/product-manager';
 import { IProduct } from '../../interfaces/iproduct';
 import { Subject, takeUntil } from 'rxjs';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-vertical-card-slider',
-  imports: [Card],
+  imports: [Card,RouterModule],
   templateUrl: './vertical-card-slider.html',
   styleUrl: './vertical-card-slider.css',
   changeDetection:ChangeDetectionStrategy.OnPush

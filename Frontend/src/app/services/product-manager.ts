@@ -24,4 +24,8 @@ export class ProductManager {
   {
     return this.client.get(`http://localhost:8000/products/${page}`);
   }
+  delete(id:string | undefined):Observable<any>
+  {
+    return this.client.delete(`http://localhost:8000/product/${id}`);
+  }
 }
