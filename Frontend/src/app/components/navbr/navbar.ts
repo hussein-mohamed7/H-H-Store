@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -9,6 +9,8 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./navbar.css'],
 })
 export class Navbar {
+  @ViewChild("searchInput") searchInput!:ElementRef
+  constructor(private router:Router){}
   menuOpen = false;
   isOpen = false;
 
@@ -16,8 +18,12 @@ export class Navbar {
     this.menuOpen = !this.menuOpen;
   }
 
-
   toggleDropdown() {
     this.isOpen = !this.isOpen;
+  }
+  search()
+  {
+    const query = this.searchInput.nativeElement.value;
+    this.router.navigateByUrl(`/search/${query}`)
   }
 }

@@ -12,6 +12,7 @@ import { VerticalCardSlider } from './components/vertical-card-slider/vertical-c
 import { CategoriesPage } from './components/categories-page/categories-page';
 import { Updatesearch } from './components/admin/updatesearch/updatesearch';
 import { Deleteproduct } from './components/admin/deleteproduct/deleteproduct';
+import { SearchPage } from './components/search-page/search-page';
 export const routes: Routes = [
     {path:'add', component: AddProduct},
     {path:'update', component:Updatesearch },
@@ -23,7 +24,9 @@ export const routes: Routes = [
         {path:'',component:HomePage},
         { path: 'login', component: LoginPage },
         {path:"signup",component: SignupPage},
-        {path:"categories",component:CategoriesPage}
+        {path:"categories",component:CategoriesPage},
+        {path:"search/:Gender/:Query",component:SearchPage},
+        {path:"search/:Query",component:SearchPage}
       ]
     },
     {

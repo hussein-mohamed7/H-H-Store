@@ -19,7 +19,7 @@
     (mouseup)="dragStop()">
     @for(category of categories;track category._id)
     {
-      <app-card [cardImg]="category.imageURL" [cardText]="category.name"></app-card>
+      <app-card [cardImg]="category.imageURL" [cardText]="category.name" routeLink="/search/{{category.gender}}/{{category.name}}"></app-card>
     }
 
     </div>
