@@ -16,6 +16,10 @@ export class ProductManager {
   {
     return this.client.get("http://localhost:8000/products");
   }
+  getAllCategories():Observable<any>
+  {
+    return this.client.get("http://localhost:8000/categories");
+  }
   getByPage(page:number)
   {
     return this.client.get(`http://localhost:8000/products/${page}`);

@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { Card } from '../card/card';
 import { ProductManager } from '../../services/product-manager';
 import { IProduct } from '../../interfaces/iproduct';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-vertical-card-slider',
@@ -10,7 +11,8 @@ import { IProduct } from '../../interfaces/iproduct';
   styleUrl: './vertical-card-slider.css',
   changeDetection:ChangeDetectionStrategy.OnPush
 })
-export class VerticalCardSlider implements OnInit {
+export class VerticalCardSlider implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
   products = signal<IProduct[]>([]);
   page:number=0;
   constructor(private p:ProductManager,private c:ChangeDetectorRef){}
@@ -19,11 +21,17 @@ export class VerticalCardSlider implements OnInit {
   }
   loadProducts():void
   {
-    this.p.getByPage(this.page).subscribe((res)=>
+    this.p.getByPage(this.page)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((res)=>
       {
         let newProducts = res as IProduct[];
         this.products.update((p)=>[...p,...newProducts]);
         this.page++;
       });
+  }
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

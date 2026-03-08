@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken")
 const nodemailer = require("nodemailer");
 const productController = require("./controllers/productController")
 const {userController} = require("./controllers/userController");
+const categoryController = require("./controllers/categoryController");
 const app = express();
 
 const transporter = nodemailer.createTransport({
@@ -110,7 +111,11 @@ app.get("/verify/:Token",async (req,res)=>{
 app.post("/addProduct",async (req,res)=>
 {
     console.log(req.body.product);
-    let result = await productController.addProduct(req.body.product);
+    for(let product of req.body.products)
+    {
+        let result = await productController.addProduct(product);
+    }
+    
     res.send({done:true});
 });
 app.get("/products",async (req,res)=>
@@ -129,5 +134,25 @@ app.get("/product/:ID",async (req,res)=>
     const product = await productController.getByID(req.params.ID);
     res.send(product);
 });
+
+// Categories
+
+app.get("/categories",async (req,res)=>
+{
+    const categories = await categoryController.getAll();
+    res.send(categories);
+})
+
+app.post("/categories",async (req,res)=>
+{
+    for(let category of req.body.categories)
+    {
+        await categoryController.add(category);
+    }
+    
+    res.send({done:true});
+})
+
+
 
 app.listen(8000);

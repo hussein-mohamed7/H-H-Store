@@ -1,5 +1,6 @@
 :host{
    flex: 0 0 calc(33.33% - 10px);
+   content-visibility: auto;
 }
 @media (max-width:640px) {
   :host{

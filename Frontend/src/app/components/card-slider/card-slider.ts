@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Card } from '../card/card';
+import { ICategory } from '../../interfaces/icategory';
 
 @Component({
   selector: 'app-card-slider',
@@ -9,6 +10,7 @@ import { Card } from '../card/card';
 })
 export class CardSlider implements OnInit, AfterViewInit {
   @ViewChild("scrollContainer") scrollContainer!:ElementRef
+  @Input() categories!:ICategory[]
   scrollElement!:any;
   touchX:number=0;
   ngOnInit(): void {
