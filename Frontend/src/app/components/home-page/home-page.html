@@ -12,7 +12,7 @@
     <video src="/assets/Video.mp4" class="w-full h-auto md:w-full lg:w-full object-cover" loop #video (canplay)="video.play()" (loadedmetadata)="video.muted = true"></video>
 </div>
 <!-- <app-product-categories></app-product-categories> -->
- <div class="bg-[#F5ECE6] pl-30 pt-5 text-3xl w-full"><span class="mr-1" >Categories</span><span class="text-xl text-blue-900 " routerLink="/categories" >| view all</span></div>
+ <div class="bg-[#F5ECE6] pl-30 py-4 text-3xl w-full"><span class="mr-1" >Categories</span><span class="text-xl text-blue-900 hover:cursor-pointer " routerLink="/categories" >| view all</span></div>
 <app-card-slider [categories]="categories"></app-card-slider>
 <section class="container mx-auto px-4 py-8">
     <div class="flex flex-col sm:flex-row gap-12">
