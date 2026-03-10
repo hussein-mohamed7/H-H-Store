@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { IProduct } from '../../interfaces/iproduct';
+import { ProductManager } from '../../services/product-manager';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-details',
@@ -6,6 +9,17 @@ import { Component } from '@angular/core';
   templateUrl: './product-details.html',
   styleUrl: './product-details.css',
 })
-export class ProductDetails {
-
+export class ProductDetails implements OnInit {
+  product !: IProduct;
+  constructor(private p:ProductManager,private activate:ActivatedRoute){}
+getID(){
+  return this.activate.snapshot.paramMap.get('id')!;
 }
+  ngOnInit(): void {
+    const id = this.getID();
+    this.p.getByID(id).subscribe(res=> { this.product=res[0];
+          console.log(this.product);
+  });
+  }
+}
+

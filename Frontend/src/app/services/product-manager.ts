@@ -24,8 +24,16 @@ export class ProductManager {
   {
     return this.client.get(`http://localhost:8000/products/${page}`);
   }
+  getByID(id:string | undefined):Observable<any>
+  {
+    return this.client.get(`http://localhost:8000/product/${id}`);
+  }
   delete(id:string | undefined):Observable<any>
   {
     return this.client.delete(`http://localhost:8000/product/${id}`);
+  }
+  update(id:string | undefined,product:IProduct):Observable<any>
+  {
+    return this.client.put(`http://localhost:8000/update/product/${id}`,{product:product});
   }
 }
