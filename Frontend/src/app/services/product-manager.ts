@@ -41,4 +41,26 @@ export class ProductManager {
   {
     return this.client.put(`http://localhost:8000/update/product/${id}`,{product:product});
   }
+
+
+  // For cart 
+addToCart(id:string)
+{
+  return this.client.post(`http://localhost:8000/cart/${id}`,{},{
+    withCredentials:true
+  });
+}
+
+getCart(): Observable<any> {
+    return this.client.get("http://localhost:8000/cart", { withCredentials: true });
+}
+
+removeFromCart(id:string)
+{
+  return this.client.delete(`http://localhost:8000/cart/${id}`,{
+    withCredentials:true
+  });
+}
+
+
 }

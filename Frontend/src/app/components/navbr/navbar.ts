@@ -56,7 +56,7 @@ export class Navbar implements OnInit {
     const query = this.searchInput.nativeElement.value;
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
     this.router.navigate([`/search/${query}`]);
-     });
+    });
 
   }
 }
