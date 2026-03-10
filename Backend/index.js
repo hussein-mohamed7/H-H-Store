@@ -146,6 +146,15 @@ app.delete("/product/:ID",async (req,res)=>{
     res.send(deleteResult);
 });
 
+app.put("/update/product/:ID",async (req,res)=>{
+    const updateResult = await productController.updateProduct(req.params.ID,req.body.product);
+    res.send(updateResult);
+    console.log(req.params.ID);
+});
+
+
+
+
 // Categories
 
 app.get("/categories",async (req,res)=>

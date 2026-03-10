@@ -9,7 +9,8 @@ const productSchema = Schema(
         quantity:{type:Number,required:true},
         rating:{type:Number,required:true},
         gender:{type:String,required:true},
-        reviews:[String]
+        reviews:[String],
+        description:{type:String,required:true}
     }
 )
 

@@ -45,5 +45,9 @@ async function addProduct(product)
     product.rating=0;
     return await Products.create(product);
 }
+async function updateProduct(ID,product)
+{
+    return await Products.updateOne({_id: new mongoose.Types.ObjectId(ID)},{$set:product});
+}
 
-module.exports = {getAll,getByCategory,getByPage,getByID,deleteByID,addProduct};
+module.exports = {getAll,getByCategory,getByPage,getByID,deleteByID,addProduct,updateProduct};
