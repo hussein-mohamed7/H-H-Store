@@ -91,7 +91,7 @@ app.post("/signup",async (req,res)=>{
         // Create email verification.
         const mailOptions = {
             from: '"Email Authentication" <202004410@pua.edu.eg>', 
-            to: 'haz25ayman@gmail.com',
+            to: user.email,
             subject: `${user.username}, verify your email to use your account.`, 
             html: `<a href="http://localhost:4200/verify/${token}">Verify Email</a>` 
         };

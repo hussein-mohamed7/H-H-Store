@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
+import { CategoryService } from '../../services/category-service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,9 +12,14 @@ import { AuthService } from '../../services/auth-service';
 })
 export class Navbar implements OnInit {
   @ViewChild("searchInput") searchInput!:ElementRef
-  constructor(private router:Router,private auth:AuthService){}
+  constructor(private router:Router,private auth:AuthService,private categoryService:CategoryService){}
   menuOpen = false;
   isOpen = false;
+
+  categories:any[] = [];
+  himCategories:any[] = [];
+  herCategories:any[] = [];
+
   ngOnInit(): void {
       this.auth.verifyToken().subscribe(
         (res:any)=>
@@ -27,6 +33,14 @@ export class Navbar implements OnInit {
           {
             alert("User not logged in");
           }
+        }
+      );
+      this.categoryService.getCategories().subscribe(
+        (res:any)=>
+        {
+          this.categories = res;
+          this.himCategories = this.categories.filter((category)=>{return category.gender=="m"});
+          this.herCategories = this.categories.filter((category)=>{return category.gender=="f"}); 
         }
       );
   }
