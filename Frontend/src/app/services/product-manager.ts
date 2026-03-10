@@ -20,9 +20,14 @@ export class ProductManager {
   {
     return this.client.get("http://localhost:8000/categories");
   }
-  getByPage(page:number)
+
+  getByPage(page:number,query:string="")
   {
-    return this.client.get(`http://localhost:8000/products/${page}`);
+    return this.client.post(`http://localhost:8000/products`,{page,query});
+  }
+  getByCategory(page:number,category:string,gender:string)
+  {
+    return this.client.post(`http://localhost:8000/products-by-category`,{page,category,gender});
   }
   delete(id:string | undefined):Observable<any>
   {

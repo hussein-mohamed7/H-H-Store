@@ -12,4 +12,5 @@ export class Card {
   @Input() cardImg!:string;
   @Input() cardText!:string;
   @Input() routeLink!:string;
+  @Input() cardPrice!:number;
 }

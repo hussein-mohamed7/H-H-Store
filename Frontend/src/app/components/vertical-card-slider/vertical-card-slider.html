@@ -3,7 +3,7 @@
 
   @for(product of products(); track product._id) {
       @defer (on viewport) {
-        <app-card [cardImg]="product.imageURL" [cardText]="product.name" routeLink="/update/product/{{product._id}}"></app-card>
+        <app-card [cardImg]="product.imageURL" [cardText]="product.name" [cardPrice]="product.price" routeLink="{{cardRouteBaseLink}}/{{product._id}}"></app-card>
       } @placeholder {
         <div class="h-[340px] w-full bg-gray-200 animate-pulse rounded-xl"></div>
       }

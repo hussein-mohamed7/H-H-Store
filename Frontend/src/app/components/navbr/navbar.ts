@@ -24,6 +24,9 @@ export class Navbar {
   search()
   {
     const query = this.searchInput.nativeElement.value;
-    this.router.navigateByUrl(`/search/${query}`)
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    this.router.navigate([`/search/${query}`]);
+     });
+
   }
 }

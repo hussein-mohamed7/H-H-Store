@@ -123,11 +123,16 @@ app.get("/products",async (req,res)=>
     const products = await productController.getAll();
     res.send(products);
 })
-app.get("/products/:page",async(req,res)=>
+app.post("/products",async(req,res)=>
 {
-    const products = await productController.getByPage(req.params.page);
+    const products = await productController.getByPage(req.body.page,req.body.query);
     res.send(products);
 })
+app.post("/products-by-category",async (req,res)=>
+{
+    const products = await productController.getByCategory(req.body.page,req.body.category,req.body.gender);
+    res.send(products);
+});
 app.get("/product/:ID",async (req,res)=>
 {
 

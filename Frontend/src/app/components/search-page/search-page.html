@@ -1,3 +1,37 @@
-Gender:{{gender}}
-<br>
-Query:{{query}}
+  <div class="mt-5"></div>
+  <span class="text-white text-5xl max-md:text-3xl ml-25">
+    @if(gender!="")
+    {
+    {{gender=="m"?"Male":"Female"}} {{query}}
+    }
+    @else
+    {
+      Search: "{{query}}"
+    }
+  </span>
+
+<div class=" bg-[#F5ECE6] w-5/6 justify-self-center my-5 py-5">
+  <div class="flex flex-row justify-between items-center mx-3">
+    <div class="w-full mr-5">
+      <ngx-slider
+      [(value)]="minValue"
+      [(highValue)]="maxValue"
+      [options]="options"
+      #priceSlider
+      >
+    </ngx-slider>
+    <p>Range: {{minValue}} - {{maxValue}}</p>
+    </div>
+    <select class="bg-white border h-[30px] max-sm:h-[50px]" #sortType (change)="sort(sortType.value)">
+      <option disabled selected>Sort by Price</option>
+      <option value="1">
+        Highest to Lowest
+      </option>
+      <option value="2">
+        Lowest to Highest
+      </option>
+    </select>
+  </div>
+<app-vertical-card-slider #products [gender]="gender" [query]="query" cardRouteBaseLink="/product"></app-vertical-card-slider>
+</div>
+

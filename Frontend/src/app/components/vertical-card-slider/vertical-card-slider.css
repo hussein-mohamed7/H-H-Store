@@ -16,19 +16,27 @@
   align-self: center;
   justify-self: center;
 }
-@media (max-width:768px) {
+@media (max-width:1024px) {
   .cards-container
   {
     grid-template-columns: 270px 270px;
     gap:10px;
   }
+  .container
+  {
+    width:550px
+  }
 
 }
 
-@media (max-width:640px) {
+@media (max-width:670px) {
   .cards-container
   {
     grid-template-columns: 270px;
     gap:10px;
+  }
+  .container
+  {
+    width:270px
   }
 }
