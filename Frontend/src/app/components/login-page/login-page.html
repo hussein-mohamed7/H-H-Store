@@ -1,18 +1,8 @@
-@switch(verificationStatus)
-{
 
-  @case (1){
-    <app-email-verification-popup color="r" topMessage="Failed" message="Verify email first."></app-email-verification-popup>
-  }
-  @case (2)
-  {
-    <app-email-verification-popup color="y" topMessage="Signup Done!" message="Verification Email Sent."></app-email-verification-popup>
-  }
-  @case (3)
-  {
-    <app-email-verification-popup color="g" topMessage="Success!" message="Email verified!"></app-email-verification-popup>
-  }
-}
+<app-email-verification-popup [style.display]="verificationStatus===1 ? 'block':'none'" color="r" topMessage="Failed" message="Verify email first." (close)="closePopup()"></app-email-verification-popup>
+<app-email-verification-popup  [style.display]="verificationStatus===2 ? 'block':'none'" color="y" topMessage="Signup Done!" message="Verification email Sent." (close)="closePopup()"></app-email-verification-popup>
+<app-email-verification-popup [style.display]="verificationStatus===3 ? 'block':'none'" color="g" topMessage="Success!" message="Email verified!" (close)="closePopup()"></app-email-verification-popup>
+<app-email-verification-popup [style.display]="verificationStatus===4 ? 'block':'none'" color="r" topMessage="Failed" message="Incorrect email or password." (close)="closePopup()"></app-email-verification-popup>
 
 
 
@@ -24,15 +14,18 @@
         <h1 class="text-center text-black  text-4xl italic">H&H</h1>
 
         <div>
-            <form class= " bg-white  rounded-2xl p-6 overflow-hidden shadow-2xl sm:mb-14 ">
+            <form class= " bg-white  rounded-2xl p-6 overflow-hidden shadow-2xl sm:mb-14 " [formGroup]="loginForm" (ngSubmit)="login()">
                 <label class="block mb-1">Email</label>
-                <input type="text" placeholder="Enter your email" class="w-full border-2 rounded-md pl-4 pr-22 py-2 text-sm text-black  focus:outline-none focus:border-[#D93B3B]">
+                <input type="text" placeholder="Enter your email" class="w-full border-2 rounded-md pl-4 pr-22 py-2 text-sm text-black  focus:outline-none focus:border-[#D93B3B]" formControlName="email">
                 <label class="block mb-1">Password</label>
-                <input type="password" placeholder="Enter your password" class="w-full border-2 rounded-md pl-4 pr-22 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]">
+                <input type="password" placeholder="Enter your password" class="w-full border-2 rounded-md pl-4 pr-22 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]" formControlName="password">
                 <div class="w-full flex justify-end pt-2">
                     <a href="#" class=" underline text-[#D93B3B] hover:cursor-pointer">Forgot Password</a>
                 </div>
-                <button type="submit" class="w-full bg-[#D93B3B] hover:bg-[#D93B3B] py-2 rounded-md mt-2 text-white hover:scale-105 hover:cursor-pointer ">LOG IN</button>
+                <button type="submit" class="btn w-full bg-[#D93B3B] py-2 rounded-md mt-2 text-white hover:bg-[#D93B3B]
+                 hover:scale-105 hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                 [attr.disabled]="loginForm.invalid ? '':null"
+                >LOG IN</button>
                 <div class="flex flex-row items-center my-4">
                 <hr class="grow border-gray-400"> <!-- grow === flex-grow-->
                 <span class="px-3 text-gray-500 text-sm">Or Login with</span>

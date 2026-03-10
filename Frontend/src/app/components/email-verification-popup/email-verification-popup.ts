@@ -1,5 +1,5 @@
 import { NgStyle } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-email-verification-popup',
@@ -11,6 +11,7 @@ export class EmailVerificationPopup implements OnInit {
   @Input() color!:string;
   @Input() topMessage!:string;
   @Input() message!:string;
+  @Output() close = new EventEmitter();
   bgColor!:string;
   hoverColor!:string;
   hovering=false;

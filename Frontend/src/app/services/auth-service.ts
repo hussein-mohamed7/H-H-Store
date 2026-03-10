@@ -1,22 +1,23 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { ChangeDetectorRef, Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   verificationStatus= signal(0);
-  constructor(private client:HttpClient){}
-  Login(email:string,password:string)
+  loggedIn=signal(false);
+  constructor(private client:HttpClient){ }
+  login(email:string,password:string) :Observable<any>
   {
-
+      return this.client.post('http://localhost:8000/login',{email,password},{withCredentials:true});
   }
-  VerifyToken()
+  verifyToken(): Observable<any>
   {
-
+      return this.client.get(`http://localhost:8000/verify-token`,{withCredentials:true})
   }
-  VerifyEmail(Token:string|null): Observable<any>
+  verifyEmail(Token:string|null): Observable<any>
   {
-    return this.client.get(`http://localhost:8000/verify/${Token}`);
+    return this.client.get(`http://localhost:8000/verify-email/${Token}`);
   }
 }

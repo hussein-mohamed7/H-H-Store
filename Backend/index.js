@@ -1,5 +1,6 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 const express = require("express");
 const bodyParser = require("body-parser");
 const argon2 = require("argon2");
@@ -25,7 +26,8 @@ mongoose.connect(process.env.connectionString);
 
 
 app.use(bodyParser.json());
-app.use(cors({ origin: 'http://localhost:4200'}));
+app.use(cookieParser());
+app.use(cors({ origin: 'http://localhost:4200',credentials:true}));
 
 // User endpoints
 app.get("/users",async (req,res)=>
@@ -42,15 +44,38 @@ app.get("/users/:ID",async(req,res)=>
 
 app.post("/login",async(req,res)=>
 {
-    // Login successful
-
-    // Login unsuccessful
+    
+    let user = (await userController.getByEmail(req.body.email))[0];
+    console.log(user);
+    if(user?.email)
+    {
+        if(!user?.isVerified)
+        {
+            res.send({success:false,code:1});
+        }
+        else if(await argon2.verify(user.password,req.body.password))
+        {
+            // Login successful
+            const token = jwt.sign({_id:user._id,username:user.username,isAdmin:user.isAdmin},process.env.jwtKey);
+            res.cookie("authToken", token,{secure:false,httpOnly:true});
+            return res.send({success:true});
+        }
+        else // Login unsuccessful
+        {
+            return res.send({success:false,code:4});
+        }
+    }
+    else // Login unsuccessful
+    {
+        return res.send({success:false,code:4});
+    }
+    
 });
 
 app.post("/signup",async (req,res)=>{
     // Check for duplicate email.
-    console.log(req.body);
-    const email =   (await userController.getByEmail(req.body.email))[0];
+    // console.log(req.body);
+    const email =  (await userController.getByEmail(req.body.email))[0];
     // console.log(email);
     if(email)
     {
@@ -59,10 +84,10 @@ app.post("/signup",async (req,res)=>{
     // Signup successful.
     else{
         const hashedPassword = await argon2.hash(req.body.password);
-        const user = await userController.addUser({username:req.body.username,password:hashedPassword,email:req.body.email,isAdmin:false,isVerified:false});
+        const user = await userController.addUser({username:req.body.username,password:hashedPassword,email:req.body.email,isAdmin:false,isVerified:false,path:'/'});
         const token = jwt.sign({_id:user._id.toString(),username:user.username},process.env.jwtKey);
-        console.log(user._id.toString());
-        console.log(token);
+        // console.log(user._id.toString());
+        // console.log(token);
         // Create email verification.
         const mailOptions = {
             from: '"Email Authentication" <202004410@pua.edu.eg>', 
@@ -82,7 +107,7 @@ app.post("/signup",async (req,res)=>{
     
 });
 
-app.get("/verify/:Token",async (req,res)=>{
+app.get("/verify-email/:Token",async (req,res)=>{
     const Token = req.params.Token;
     if(Token)
     {
@@ -104,8 +129,47 @@ app.get("/verify/:Token",async (req,res)=>{
     }
     
 });
-
-
+app.get("/verify-token",async (req,res)=>
+{
+    if(req.cookies.authToken)
+    {
+        // console.log(req.cookies.authToken);
+        let user = jwt.verify(req.cookies.authToken,process.env.jwtKey);
+        let verification = (await userController.getByID(user._id))[0];
+        console.log(verification);
+        if(verification._id)
+        {
+            console.log("verified id")
+            console.log(user);
+            if(user.isAdmin)
+            {
+                if(user.isAdmin==verification.isAdmin)
+                {
+                    res.send({verified:true});
+                }
+                else
+                {
+                    res.send({verified:false});
+                }
+            }
+            else
+            {  
+                console.log("user is verified");
+                res.send({verified:true});
+            }
+                
+        }
+        else
+        {
+            res.send({verified:false});
+        }
+    }
+    else
+    {
+        res.send({verified:false});
+    }
+    
+});
 // Product endpoints
 
 app.post("/addProduct",async (req,res)=>

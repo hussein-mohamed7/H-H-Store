@@ -13,7 +13,7 @@ export class VerifyEmail implements OnInit {
 
   ngOnInit(): void {
       const Token = this.route.snapshot.paramMap.get("Token");
-      this.auth.VerifyEmail(Token).subscribe((res)=>
+      this.auth.verifyEmail(Token).subscribe((res)=>
       {
         if(res.verified)
         {

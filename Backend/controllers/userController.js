@@ -17,7 +17,7 @@ async function getByID(ID)
 async function getByEmail(Email)
 {
     console.log(Email);
-    return await Users.find({email:Email},{email:1}).lean();
+    return await Users.find({email:Email}).lean();
 }
 async function deleteByID(ID)
 {
