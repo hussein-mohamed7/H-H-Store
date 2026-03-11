@@ -2,7 +2,20 @@
   <div class="flex items-center justify-between">
 
           <!-- Logo -->
-          <a routerLink="/"><img src="assets/logo.png" class="h-10 w-auto"alt="Logo"/></a>
+          <a routerLink="/"><svg width="120" height="50" viewBox="0 0 120 50" xmlns="http://www.w3.org/2000/svg">
+    <text 
+      x="50%" 
+      y="50%" 
+      font-family="Georgia, 'Times New Roman', serif" 
+      font-size="32" 
+      font-style="italic" 
+      font-weight="bold"
+      fill="white" 
+      text-anchor="middle" 
+      dominant-baseline="central">
+      H&amp;H
+    </text>
+  </svg></a>
 
           <!-- Search -->
           <div class="hidden md:block w-1/3">
@@ -69,13 +82,17 @@
             </div>
 
             <!-- User -->
-<a routerLink="/login">
+<div class="relative hidden md:block group">
+  <!-- User Image -->
   <img
     src="https://i.pravatar.cc/40"
-    class="h-9 w-9 rounded-full cursor-pointer border-2 border-white hidden md:block"
+    class="h-9 w-9 rounded-full cursor-pointer border-2 border-white"
     alt="User"
   />
-</a>
+
+  <!-- Dropdown -->
+<app-signout></app-signout>
+</div>
 
             <!-- Hamburger -->
             <button
@@ -142,11 +159,19 @@
           </span>
         </div>
 
-        <img
-          src="https://i.pravatar.cc/40"
-          class="h-9 w-9 rounded-full cursor-pointer border-2 border-white"
-          alt="User"
-        />
+<div class="relative  md:block group">
+  <!-- User Image -->
+  <img
+    src="https://i.pravatar.cc/40"
+    class="h-9 w-9 rounded-full cursor-pointer border-2 border-white"
+    alt="User"
+  />
+
+  <!-- Dropdown -->
+<app-signout></app-signout>
+</div>
+
+        
       </div>
 
     </div>

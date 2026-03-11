@@ -3,10 +3,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
 import { CategoryService } from '../../services/category-service';
-
+import { Signout } from '../signout/signout';
 @Component({
   selector: 'app-navbar',
-  imports: [CommonModule,RouterModule],
+  imports: [CommonModule,RouterModule,Signout],
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.css'],
 })
