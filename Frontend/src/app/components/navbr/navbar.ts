@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
-import { CategoryService } from '../../services/category-service';
+import { ProductManager } from '../../services/product-manager';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +12,7 @@ import { CategoryService } from '../../services/category-service';
 })
 export class Navbar implements OnInit {
   @ViewChild("searchInput") searchInput!:ElementRef
-  constructor(private router:Router,private auth:AuthService,private categoryService:CategoryService){}
+  constructor(private router:Router,private auth:AuthService,private p:ProductManager){}
   menuOpen = false;
   isOpen = false;
 
@@ -24,7 +24,7 @@ export class Navbar implements OnInit {
 
       console.log(this.auth.isAdmin())
       console.log(this.auth.isLoggedIn())
-      this.categoryService.getCategories().subscribe(
+      this.p.getAllCategories().subscribe(
         (res:any)=>
         {
           this.categories = res;

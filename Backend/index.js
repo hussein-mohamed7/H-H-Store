@@ -34,13 +34,26 @@ app.use(cors({ origin: 'http://localhost:4200',credentials:true}));
 // User endpoints
 app.get("/users",async (req,res)=>
 {
-    let results = await userController.getAll();
+    const results = await userController.getAll();
     res.send(results);
 });
-
+app.get("/users-for-admin",async( req,res)=>
+{
+    const admin = jwt.verify(req.cookies.authToken,process.env.jwtKey);
+    if(admin.isAdmin)
+    {
+        const results = await userController.getAllForAdmin(admin._id);
+        res.send(results);
+    }
+    else
+    {
+        res.send({denied:true});
+    }
+    
+});
 app.get("/users/:ID",async(req,res)=>
 {
-    let results = await userController.getByID(req.params.ID);
+    const results = await userController.getByID(req.params.ID);
     res.send(results);
 });
 
