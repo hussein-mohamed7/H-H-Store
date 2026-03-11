@@ -20,6 +20,10 @@ export class LoginPage implements OnInit {
   ngOnInit(): void {
 
       // this.verificationStatus = this.auth.verificationStatus();
+      if(this.auth.loggedIn())
+      {
+        this.router.navigateByUrl("/");
+      }
       this.loginForm = this.builder.group(
         {
           email:["",[Validators.email,Validators.required]],
