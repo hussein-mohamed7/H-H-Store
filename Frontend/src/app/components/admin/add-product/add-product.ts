@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { RouterModule } from '@angular/router';
 import { IProduct } from '../../../interfaces/iproduct';
 import { ProductManager } from '../../../services/product-manager';
+import { ICategory } from '../../../interfaces/icategory';
 
 
 @Component({
@@ -13,6 +14,8 @@ import { ProductManager } from '../../../services/product-manager';
 })
 export class AddProduct implements OnInit {
   adminAddProduct!:FormGroup;
+  categoriesM!:ICategory[];
+  categoriesF!:ICategory[];
   constructor(private builder:FormBuilder,private p:ProductManager){}
 
   ngOnInit(): void {
@@ -27,6 +30,12 @@ export class AddProduct implements OnInit {
           description:["",[Validators.required]]
         }
       );
+      this.p.getAllCategories().subscribe((res)=>
+      {
+        let categories:ICategory[]=res;
+        this.categoriesM = categories.filter((category)=>category.gender=="m");
+        this.categoriesF = categories.filter((category)=>category.gender=="f");
+      });
   }
 
   get name()

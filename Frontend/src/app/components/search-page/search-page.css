@@ -1,4 +1,12 @@
-ngx-slider
+::ng-deep .ngx-slider .ngx-slider-pointer
 {
-  flex-grow:1;
+  background-color: #2A858C !important;
+}
+
+::ng-deep .ngx-slider .ngx-slider-selection
+{
+  background-color: #2A858C !important;
+}
+::ng-deep .ngx-slider .ngx-slider-pointer::after {
+  background: #F5ECE6 !important; /* Your new color */
 }

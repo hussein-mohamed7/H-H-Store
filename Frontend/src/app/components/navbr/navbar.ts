@@ -21,26 +21,15 @@ export class Navbar implements OnInit {
   herCategories:any[] = [];
 
   ngOnInit(): void {
-      this.auth.verifyToken().subscribe(
-        (res:any)=>
-        {
-          this.auth.loggedIn.set(res.verified);
-          if(this.auth.loggedIn())
-          {
-            alert("User is logged in")
-          }
-          else
-          {
-            alert("User not logged in");
-          }
-        }
-      );
+
+      console.log(this.auth.isAdmin())
+      console.log(this.auth.isLoggedIn())
       this.categoryService.getCategories().subscribe(
         (res:any)=>
         {
           this.categories = res;
           this.himCategories = this.categories.filter((category)=>{return category.gender=="m"});
-          this.herCategories = this.categories.filter((category)=>{return category.gender=="f"}); 
+          this.herCategories = this.categories.filter((category)=>{return category.gender=="f"});
         }
       );
   }
@@ -58,5 +47,11 @@ export class Navbar implements OnInit {
     this.router.navigate([`/search/${query}`]);
     });
 
+  }
+  categoryClick(gender:string,category:string)
+  {
+     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    this.router.navigateByUrl(`/search/${gender}/${category}`);
+    });
   }
 }

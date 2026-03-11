@@ -41,7 +41,7 @@
     @for (cat of himCategories; track cat.name) {
       <a
         class="block px-4 py-2 hover:bg-gray-100 cursor-pointer"
-        [routerLink]="['/search','m',cat.name]"
+        (click)="categoryClick('m',cat.name)"
       >
         {{ cat.name }}
       </a>
@@ -54,7 +54,7 @@
     @for (cat of herCategories; track cat.name) {
       <a
         class="block px-4 py-2 hover:bg-gray-100 cursor-pointer"
-        [routerLink]="['/search','f',cat.name]"
+        (click)="categoryClick('f',cat.name)"
       >
         {{ cat.name }}
       </a>
@@ -103,7 +103,7 @@
 
 
 
-      
+
       <button
         (click)="toggleDropdown()"
         class="w-full px-4 py-2 rounded-md text-sm bg-gray-800 flex items-center justify-between"
@@ -118,7 +118,7 @@
     <div class="px-4 py-2 font-bold">For Him</div>
 
     @for (cat of himCategories; track cat.name) {
-      <a class="block px-4 py-2 hover:bg-gray-100 cursor-pointer" [routerLink]="['/search','m',cat.name]">
+      <a class="block px-4 py-2 hover:bg-gray-100 cursor-pointer" (click)="categoryClick('m',cat.name)">
         {{cat.name}}
       </a>
     }
@@ -126,7 +126,7 @@
     <div class="px-4 py-2 font-bold border-t mt-2">For Her</div>
 
     @for (cat of herCategories; track cat.name) {
-      <a class="block px-4 py-2 hover:bg-gray-100 cursor-pointer" [routerLink]="['/search','f',cat.name]">
+      <a class="block px-4 py-2 hover:bg-gray-100 cursor-pointer" (click)="categoryClick('f',cat.name)">
         {{cat.name}}
       </a>
     }

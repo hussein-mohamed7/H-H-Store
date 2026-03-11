@@ -5,10 +5,6 @@ async function getAll()
 {
     return await Users.find({}).lean();
 }
-async function getByCategory()
-{
-
-}
 async function getByID(ID)
 {
     console.log(ID);
@@ -35,7 +31,6 @@ async function verify(ID)
 }
 const userController={};
 userController.getAll = getAll;
-userController.getByCategory = getByCategory;
 userController.getByID = getByID;
 userController.addUser = addUser;
 userController.deleteByID = deleteByID;

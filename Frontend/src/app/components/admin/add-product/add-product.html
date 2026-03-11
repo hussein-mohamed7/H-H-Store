@@ -1,44 +1,3 @@
-<div class="flex flex-col md:flex-row min-h-screen gap-4">
-    <div class="bg-black w-full md:w-60 p-6 overflow-auto shadow-2xl flex flex-col gap-3">
-            <img src="/assets/LoginPage.png" alt="Login Page" class="w-32 mb-5 rounded-md">
-            <hr class="border-white mb-5">
-
-            <h1
-            class="text-white mb-2 cursor-pointer rounded"
-            routerLink="/add"
-            routerLinkActive="bg-gray-600 py-1 px-1"
-            [routerLinkActiveOptions]="{ exact: true }"
-            >
-            Add Product
-            </h1>
-
-            <h1
-            class="text-white mb-2 cursor-pointer rounded"
-            routerLink="/update"
-            routerLinkActive="bg-gray-600 py-1 px-1"
-            [routerLinkActiveOptions]="{ exact: true }"
-            >
-            Update Product
-            </h1>
-
-            <h1
-            class="text-white mb-2 cursor-pointer rounded"
-            routerLink="/delete"
-            routerLinkActive="bg-gray-600 py-1 px-1"
-            [routerLinkActiveOptions]="{ exact: true }"
-            >
-            Delete Product
-            </h1>
-
-            <h1
-            class="text-white mb-2 cursor-pointer rounded"
-            routerLink="/Users"
-            routerLinkActive="bg-gray-600 py-1 px-1"
-            [routerLinkActiveOptions]="{ exact: true }"
-            >
-            Users
-            </h1>
-    </div>
 
     <form class="w-full" [formGroup]="adminAddProduct" (ngSubmit)="add()">
           <div class="flex-1 flex items-center justify-center my-14"> <!--flex-1 is Tailwind shorthand for flex-grow: 1; flex-shrink: 1; flex-basis: 0;-->
@@ -57,21 +16,35 @@
         <label class="block mb-2 mt-4">Image URL</label>
         <input type="text" placeholder="Enter product image" class="w-full border-2 rounded-md px-4 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]" formControlName="imageURL">
 
-        <label class="block mb-2 mt-4">Category</label>
-        <select class="w-full border-2 rounded-md px-4 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]" formControlName="category">
-        <option value="" disabled selected>Select a category</option>
-        <option value="electronics">Electronics</option>
-        <option value="fashion">Fashion</option>
-        <option value="books">Books</option>
-        <option value="home">Home</option>
-        <option value="toys">Toys</option>
-        </select>
 
         <label class="block mb-2 mt-4">Gender</label>
         <select class="w-full border-2 rounded-md px-4 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]" formControlName="gender">
         <option value="" disabled selected>Select a gender</option>
         <option value="m">Male</option>
         <option value="f">Female</option>
+        </select>
+
+
+        <label class="block mb-2 mt-4">Category</label>
+        <select class="w-full border-2 rounded-md px-4 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]" formControlName="category">
+        <option value="" disabled selected>Select a category</option>
+        @switch(gender?.value)
+        {
+          @case("m")
+          {
+            @for(category of categoriesM;track category.name)
+            {
+              <option [value]="category.name">{{category.name}}</option>
+            }
+          }
+          @case("f")
+          {
+            @for(category of categoriesF;track category.name)
+            {
+              <option [value]="category.name">{{category.name}}</option>
+            }
+          }
+        }
         </select>
 
         <label class="block mb-2 mt-4">Product Description</label>
@@ -85,5 +58,3 @@
         </div>
     </div>
     </form>
-
-</div>

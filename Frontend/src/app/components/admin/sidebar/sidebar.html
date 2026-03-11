@@ -1,0 +1,43 @@
+<div class="bg-black h-full w-full md:w-60 p-6 overflow-auto shadow-2xl flex flex-col gap-3">
+            <a routerLink="/" class="self-center">
+              <img src="/assets/LoginPage.png" alt="Login Page" class="w-32 mb-5  rounded-md">
+            </a>
+
+            <hr class="border-white mb-5">
+
+            <h1
+            class="text-white mb-2 cursor-pointer rounded"
+            routerLink="/admin/add"
+            routerLinkActive="bg-gray-600 py-1 px-1"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >
+            Add Product
+            </h1>
+
+            <h1
+            class="text-white mb-2 cursor-pointer rounded"
+            routerLink="/admin/update"
+            routerLinkActive="bg-gray-600 py-1 px-1"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >
+            Update Product
+            </h1>
+
+            <h1
+            class="text-white mb-2 cursor-pointer rounded"
+            routerLink="/admin/delete"
+            routerLinkActive="bg-gray-600 py-1 px-1"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >
+            Delete Product
+            </h1>
+
+            <h1
+            class="text-white mb-2 cursor-pointer rounded"
+            routerLink="/admin/Users"
+            routerLinkActive="bg-gray-600 py-1 px-1"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >
+            Users
+            </h1>
+    </div>

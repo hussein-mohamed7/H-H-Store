@@ -21,13 +21,13 @@ export class ProductManager {
     return this.client.get("http://localhost:8000/categories");
   }
 
-  getByPage(page:number,query:string="")
+  getByPage(page:number,query:string="",minPrice:number=0,maxPrice:number=5000)
   {
-    return this.client.post(`http://localhost:8000/products`,{page,query});
+    return this.client.post(`http://localhost:8000/products`,{page,query,minPrice,maxPrice});
   }
-  getByCategory(page:number,category:string,gender:string)
+  getByCategory(page:number,category:string,gender:string,minPrice:number=0,maxPrice:number=5000)
   {
-    return this.client.post(`http://localhost:8000/products-by-category`,{page,category,gender});
+    return this.client.post(`http://localhost:8000/products-by-category`,{page,category,gender,minPrice,maxPrice});
   }
   getByID(id:string | undefined):Observable<any>
   {
@@ -43,7 +43,7 @@ export class ProductManager {
   }
 
 
-  // For cart 
+  // For cart
 addToCart(id:string)
 {
   return this.client.post(`http://localhost:8000/cart/${id}`,{},{

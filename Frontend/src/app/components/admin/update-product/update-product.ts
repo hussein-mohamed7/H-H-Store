@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule,Validators } from '@angular
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProductManager } from '../../../services/product-manager';
 import { IProduct } from '../../../interfaces/iproduct';
+import { ICategory } from '../../../interfaces/icategory';
 
 @Component({
   selector: 'app-update-product',
@@ -12,10 +13,13 @@ import { IProduct } from '../../../interfaces/iproduct';
 })
 export class UpdateProduct implements OnInit{
   adminUpdateProduct!:FormGroup
+  categoriesM!:ICategory[];
+  categoriesF!:ICategory[];
+  product !: IProduct
+  id !: string
   constructor(private builder:FormBuilder,private p:ProductManager,private activate:ActivatedRoute,private router:Router){
   }
-product !: IProduct
-id !: string
+
 
 getID(){
   return this.activate.snapshot.paramMap.get('id')!;
@@ -43,13 +47,45 @@ getID(){
             this.adminUpdateProduct.get('gender')?.setValue(this.product.gender);
             this.adminUpdateProduct.get('description')?.setValue(this.product.description);
       });
-
+      this.p.getAllCategories().subscribe((res)=>
+      {
+        let categories:ICategory[]=res;
+        this.categoriesM = categories.filter((category)=>category.gender=="m");
+        this.categoriesF = categories.filter((category)=>category.gender=="f");
+      });
   }
-
+   get name()
+  {
+    return this.adminUpdateProduct.get("name");
+  }
+  get price()
+  {
+    return this.adminUpdateProduct.get("price");
+  }
+  get quantity()
+  {
+    return this.adminUpdateProduct.get("quantity");
+  }
+  get imageURL()
+  {
+    return this.adminUpdateProduct.get("imageURL");
+  }
+  get category()
+  {
+    return this.adminUpdateProduct.get("category");
+  }
+  get gender()
+  {
+    return this.adminUpdateProduct.get("gender");
+  }
+  get description()
+  {
+    return this.adminUpdateProduct.get("description");
+  }
 
   update()
   {
-          
+
     this.p.update(this.id,this.adminUpdateProduct.value).subscribe(
       (res)=>
       {

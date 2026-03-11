@@ -18,8 +18,12 @@ export class VerticalCardSlider implements OnInit, OnDestroy {
   @Input() gender:string="";
   @Input() cardRouteBaseLink!:string;
   products = signal<IProduct[]>([]);
+  productCount:number=1;
   page:number=0;
   sortType:number=0;
+  minPrice:number=0;
+  maxPrice:number=5000;
+  isLoading:boolean=false;
   constructor(private p:ProductManager,private c:ChangeDetectorRef){}
   ngOnInit(): void {
     this.loadProducts();
@@ -29,33 +33,41 @@ export class VerticalCardSlider implements OnInit, OnDestroy {
     console.log(this.page);
     console.log(this.query);
     console.log(this.gender);
+    console.log(this.minPrice);
+    console.log(this.maxPrice);
+    this.isLoading=true;
     if(this.gender=="")
     {
-      this.p.getByPage(this.page,this.query)
+      this.p.getByPage(this.page,this.query,this.minPrice,this.maxPrice)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res)=>
         {
-          let newProducts = res as IProduct[];
-          this.products.update((p)=>[...p,...newProducts]);
+          let newProducts = res as any;
+          this.products.update((p)=>[...p,...newProducts.products]);
+          this.productCount=newProducts.count;
           this.page++;
           this.sort();
-          console.log(this.products())
+          this.isLoading=false;
+          // console.log(this.products())
         });
     }
     else
     {
-      this.p.getByCategory(this.page,this.query,this.gender)
+      this.p.getByCategory(this.page,this.query,this.gender,this.minPrice,this.maxPrice)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res)=>
       {
           console.log("searching by category.");
-          let newProducts = res as IProduct[];
-          this.products.update((p)=>[...p,...newProducts]);
+          let newProducts = res as any;
+          this.products.update((p)=>[...p,...newProducts.products]);
+          this.productCount=newProducts.count;
           this.page++;
+          this.isLoading=false;
           this.sort();
-          console.log(this.products())
+          // console.log(this.products())
       })
     }
+    this.c.markForCheck();
 
 
   }
@@ -67,6 +79,14 @@ export class VerticalCardSlider implements OnInit, OnDestroy {
   {
     this.sortType=type;
     this.sort();
+  }
+  changePriceRange(min:number,max:number)
+  {
+    this.minPrice=min;
+    this.maxPrice=max;
+    this.products.set([]);
+    this.page=0;
+    this.loadProducts();
   }
   sort()
   {

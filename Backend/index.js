@@ -86,7 +86,7 @@ app.post("/signup",async (req,res)=>{
     // Signup successful.
     else{
         const hashedPassword = await argon2.hash(req.body.password);
-        const user = await userController.addUser({username:req.body.username,password:hashedPassword,email:req.body.email,isAdmin:false,isVerified:false,path:'/'});
+        const user = await userController.addUser({username:req.body.username,password:hashedPassword,email:req.body.email,isAdmin:false,isVerified:false,isActive:true});
         const token = jwt.sign({_id:user._id.toString(),username:user.username},process.env.jwtKey);
         // console.log(user._id.toString());
         // console.log(token);
@@ -133,6 +133,7 @@ app.get("/verify-email/:Token",async (req,res)=>{
 });
 app.get("/verify-token",async (req,res)=>
 {
+    let status;
     if(req.cookies.authToken)
     {
         // console.log(req.cookies.authToken);
@@ -147,31 +148,40 @@ app.get("/verify-token",async (req,res)=>
             {
                 if(user.isAdmin==verification.isAdmin)
                 {
-                    res.send({verified:true});
+                    status={verified:true,isAdmin:true};
                 }
                 else
                 {
-                    res.send({verified:false});
+                    status={verified:false,isAdmin:false};
                 }
             }
             else
             {  
                 console.log("user is verified");
-                res.send({verified:true});
+                status={verified:true,isAdmin:false};
             }
                 
         }
         else
         {
-            res.send({verified:false});
+            status={verified:false,isAdmin:false};
         }
     }
     else
     {
-        res.send({verified:false});
+        status={verified:false,isAdmin:false};
     }
-    
+    console.log(status);
+    res.send(status);
 });
+
+app.get("/signout",(req,res)=>
+{
+    res.clearCookie("authToken",{httpOnly:true,secure:false});
+    res.send({signedOut:true});
+});
+
+
 // Product endpoints
 
 app.post("/addProduct",async (req,res)=>
@@ -191,13 +201,13 @@ app.get("/products",async (req,res)=>
 })
 app.post("/products",async(req,res)=>
 {
-    const products = await productController.getByPage(req.body.page,req.body.query);
-    res.send(products);
+    const result = await productController.getByPage(req.body.page,req.body.query,req.body.minPrice,req.body.maxPrice);
+    res.send(result);
 })
 app.post("/products-by-category",async (req,res)=>
 {
-    const products = await productController.getByCategory(req.body.page,req.body.category,req.body.gender);
-    res.send(products);
+    const result = await productController.getByCategory(req.body.page,req.body.category,req.body.gender,req.body.minPrice,req.body.maxPrice);
+    res.send(result);
 });
 app.get("/product/:ID",async (req,res)=>
 {

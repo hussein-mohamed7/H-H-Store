@@ -7,8 +7,8 @@ const userSchema = Schema(
         email:String,
         isAdmin:Boolean,
         isVerified:Boolean,
+        isActive:Boolean,
         reviews:[String],
-        cart:[String]
     }
 )
 

@@ -16,12 +16,23 @@ import { SearchPage } from './components/search-page/search-page';
 import { ConfirmLogin } from './components/confirm-login/confirm-login';
 import { ProductDetails } from './components/product-details/product-details';
 import { Cart } from './components/cart/cart';
+import { userGuard } from './guards/user-guard';
+import { AdminPage } from './components/admin/admin-page/admin-page';
+import { adminGuard } from './guards/admin-guard';
 export const routes: Routes = [
-    {path:'add', component: AddProduct},
-    {path:'update', component:Updatesearch },
-    {path:'update/product/:id', component:UpdateProduct},
-    {path:'delete',component:Deleteproduct},
-    {path:'Users',component:Users},
+    {path:'admin',component:AdminPage,children:
+      [
+        {path:'',redirectTo:'add',pathMatch:"full"},
+        {path:'add', component: AddProduct},
+        {path:'update', component:Updatesearch },
+        {path:'update/product/:id', component:UpdateProduct},
+        {path:'delete',component:Deleteproduct},
+        {path:'Users',component:Users}
+      ],
+      canActivate:[adminGuard]
+    }
+
+    ,
     { path: '', component: NavFooterContainer,children:
       [
         {path:'',component:HomePage},
@@ -32,7 +43,7 @@ export const routes: Routes = [
         {path:"search/:Query",component:SearchPage},
         {path:'confirm',component : ConfirmLogin},
         {path : 'product/:id',component:ProductDetails},
-        {path:'cartpage',component: Cart},
+        {path:'cartpage',component: Cart,canActivate:[userGuard]}
       ]
     },
     {

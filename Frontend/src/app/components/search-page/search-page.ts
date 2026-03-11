@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VerticalCardSlider } from '../vertical-card-slider/vertical-card-slider';
 import { ProductManager } from '../../services/product-manager';
@@ -10,17 +10,16 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
   imports: [VerticalCardSlider, NgxSliderModule],
   templateUrl: './search-page.html',
   styleUrl: './search-page.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SearchPage implements OnInit {
-
+export class SearchPage implements OnInit{
+  @ViewChild('products') productsList!:VerticalCardSlider;
   gender: string = "";
   query: string = "";
-
-  productsList: any[] = [];
-
   minValue: number = 0;
   maxValue: number = 5000;
-
+  minPrice:number=0;
+  maxPrice:number=5000;
   options: Options = {
     floor: 0,
     ceil: 5000,
@@ -29,28 +28,25 @@ export class SearchPage implements OnInit {
 
   constructor(
     private active: ActivatedRoute,
-    private p: ProductManager
+    private p: ProductManager,
+    private c:ChangeDetectorRef
   ) {}
 
 ngOnInit(): void {
   this.active.params.subscribe(params => {
     this.gender = params['Gender'] ?? "";
     this.query = params['Query'] ?? "";
-    this.loadProducts(this.gender, this.query);
   });
 }
 
-  loadProducts(gender: string, query: string) {
 
-    this.p.getByCategory(1, query, gender)
-  .subscribe((res:any)=>{
-  this.productsList = res;
-});
-
-  }
 
   sort(type: string) {
     console.log("Sort type:", type);
+     this.productsList.changeSortType(Number(type));
   }
-
+  applyPrice()
+  {
+    this.productsList.changePriceRange(this.minValue,this.maxValue);
+  }
 }

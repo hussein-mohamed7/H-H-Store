@@ -15,6 +15,7 @@ export class CategoriesPage implements OnInit{
   categories!:ICategory[]
   constructor(private p:ProductManager,private c:ChangeDetectorRef){}
   ngOnInit(): void {
+    window.scrollTo(0,0);
     this.p.getAllCategories().subscribe(
       (res)=>
       {

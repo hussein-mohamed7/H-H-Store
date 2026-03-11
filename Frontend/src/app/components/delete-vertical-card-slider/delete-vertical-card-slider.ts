@@ -12,6 +12,7 @@ import { Deletecard } from '../deletecard/deletecard';
 })
 export class DeleteCardSlider implements OnInit {
  products = signal<IProduct[]>([]);
+  productCount!:number;
   page:number=0;
   constructor(private p:ProductManager,private c:ChangeDetectorRef){}
   ngOnInit(): void {
@@ -21,8 +22,9 @@ export class DeleteCardSlider implements OnInit {
   {
     this.p.getByPage(this.page).subscribe((res)=>
       {
-        let newProducts = res as IProduct[];
-        this.products.update((p)=>[...p,...newProducts]);
+        let newProducts = res as any;
+        this.products.update((p)=>[...p,...newProducts.products]);
+        this.productCount=newProducts.count;
         this.page++;
       });
   }

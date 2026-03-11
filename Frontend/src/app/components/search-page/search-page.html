@@ -12,17 +12,21 @@
 
 <div class=" bg-[#F5ECE6] w-5/6 justify-self-center my-5 py-5">
   <div class="flex flex-row justify-between items-center mx-3">
-    <div class="w-full mr-5">
-      <ngx-slider
+    <div class="w-full flex items-center gap-5 mr-5">
+      <div class="mb-5 w-full">
+        <ngx-slider
       [(value)]="minValue"
       [(highValue)]="maxValue"
       [options]="options"
       #priceSlider
       >
     </ngx-slider>
-    <p>Range: {{minValue}} - {{maxValue}}</p>
+
+      </div>
+
+    <button class="bg-[#2A858C] text-white px-2 h-[30px] max-sm:h-[50px] rounded-lg border" (click)="applyPrice()">Apply</button>
     </div>
-    <select class="bg-white border h-[30px] max-sm:h-[50px]" #sortType (change)="sort(sortType.value)">
+    <select class="bg-white border h-[30px] max-sm:h-[50px] rounded-lg" #sortType (change)="sort(sortType.value)">
       <option disabled selected>Sort by Price</option>
       <option value="1">
         Highest to Lowest

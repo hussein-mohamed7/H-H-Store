@@ -20,9 +20,13 @@ export class LoginPage implements OnInit {
   ngOnInit(): void {
 
       // this.verificationStatus = this.auth.verificationStatus();
-      if(this.auth.loggedIn())
+      if(this.auth.isAdmin())
       {
-        this.router.navigateByUrl("/");
+        this.router.navigateByUrl("/admin");
+      }
+      else if(this.auth.isLoggedIn())
+      {
+        this.router.navigateByUrl('/');
       }
       this.loginForm = this.builder.group(
         {
@@ -50,7 +54,7 @@ export class LoginPage implements OnInit {
         if(res.success)
         {
             // Login success
-            this.auth.loggedIn.set(true);
+            this.auth.verifyToken();
             this.router.navigateByUrl("/");
         }
         else
