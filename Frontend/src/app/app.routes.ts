@@ -32,7 +32,7 @@ export const routes: Routes = [
         {path:"search/:Query",component:SearchPage},
         {path:'confirm',component : ConfirmLogin},
         {path : 'product/:id',component:ProductDetails},
-        {path:'cart',component: Cart}
+        {path:'cartpage',component: Cart},
       ]
     },
     {

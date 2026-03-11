@@ -10,7 +10,9 @@ const nodemailer = require("nodemailer");
 const productController = require("./controllers/productController")
 const {userController} = require("./controllers/userController");
 const categoryController = require("./controllers/categoryController");
+const cartController = require("./controllers/cartController");
 const app = express();
+
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -91,7 +93,7 @@ app.post("/signup",async (req,res)=>{
         // Create email verification.
         const mailOptions = {
             from: '"Email Authentication" <202004410@pua.edu.eg>', 
-            to: 'haz25ayman@gmail.com',
+            to: user.email,
             subject: `${user.username}, verify your email to use your account.`, 
             html: `<a href="http://localhost:4200/verify/${token}">Verify Email</a>` 
         };
@@ -239,5 +241,55 @@ app.post("/categories",async (req,res)=>
 
 
 
+// for cart
+function getUserFromRequest(req) {
+    if(!req.cookies.authToken) return null;
+    try {
+        return jwt.verify(req.cookies.authToken, process.env.jwtKey);
+    } catch(err) {
+        return null;
+    }
+}
+
+
+app.post("/cart/:id", async (req, res) => {
+    const user = getUserFromRequest(req);
+    if(!user) return res.status(401).send({ error: "Not logged in" });
+
+    const productId = req.params.id;
+    try {
+        const result = await cartController.addToCart(user._id, productId);
+        res.send(result);
+    } catch(err) {
+        res.status(500).send({ error: "Failed to add to cart", details: err.message });
+    }
+});
+
+
+app.get("/cart", async (req, res) => {
+    const user = getUserFromRequest(req);
+    if(!user) return res.status(401).send({ error: "Not logged in" });
+
+    try {
+        const cart = await cartController.getCart(user._id);
+        res.send(cart);
+    } catch(err) {
+        res.status(500).send({ error: "Failed to get cart", details: err.message });
+    }
+});
+
+
+app.delete("/cart/:id", async (req, res) => {
+    const user = getUserFromRequest(req);
+    if(!user) return res.status(401).send({ error: "Not logged in" });
+
+    const productId = req.params.id;
+    try {
+        const result = await cartController.removeFromCart(user._id, productId);
+        res.send(result);
+    } catch(err) {
+        res.status(500).send({ error: "Failed to remove from cart", details: err.message });
+    }
+});
 
 app.listen(8000);

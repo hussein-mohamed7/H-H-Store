@@ -1,38 +1,36 @@
 <div class="flex flex-col justify-center items-center gap-8 my-8">
-    <div class="flex flex-col bg-[#D9D9D9] gap-8 w-4/5">
-        <h1 class="text-2xl p-4  text-black ">Your Picks (number)</h1>
-        <div class="flex justify-evenly items-center gap-2 md:gap-8 bg-[#F5ECE6]">
-                <img src="assets/1.png" alt="Product Image" class="w-28 h-28 m-6 object-cover">
-                <h1>Name</h1>
-                <input type="text"  placeholder=" Quantity"  class="w-1/5  border-4 md:w-1/5  py-2 md:my-8 rounded-md  text-black  ">
-                <h1>Price</h1>
-        </div>
+    <div class="flex flex-col bg-[#D9D9D9] gap-8 w-4/5 pb-8">
+        <h1 class="text-2xl p-4 text-black">Your Picks ({{ cartItems?.length || 0 }})</h1>
 
-        <div class="flex justify-evenly items-center gap-2 md:gap-8 bg-[#F5ECE6]">
-                <img src="assets/1.png" alt="Product Image" class="w-28 h-28 m-6 object-cover">
-                <h1>Name</h1>
-                <input type="text"  placeholder=" Quantity"  class="w-1/5 self-center border-4 md:w-1/5  py-2 md:my-8 rounded-md  text-black  ">
-                <h1>Price</h1>
-        </div>
-
-        <div class="flex justify-evenly items-center gap-2 md:gap-8 bg-[#F5ECE6]">
-                <img src="assets/1.png" alt="Product Image" class="w-28 h-28 m-6 object-cover">
-                <h1>Name</h1>
-                <input type="text" placeholder=" Quantity"  class="w-1/5 self-center border-4 md:w-1/5  py-2 md:my-8 rounded-md  text-black  ">
-                <h1>Price</h1>
-        </div>
-
+        @for (item of cartItems; track item._id; let i = $index) {
+            <div class="flex justify-evenly items-center gap-2 md:gap-8 bg-[#F5ECE6]">
+                
+                <img [src]="item.productId?.imageURL" 
+                    class="w-28 h-28 m-6 object-cover" 
+                    alt="Product">
+                
+                <h1 class="font-bold text-black">{{ item.productId?.name || 'Loading...' }}</h1>
+                
+                <input type="number" 
+                    [(ngModel)]="item.quantity" 
+                    (ngModelChange)="calculateTotal()"
+                    class="w-16 border-4 py-2 rounded-md text-black text-center">
+                
+                <h1 class="font-semibold text-black">
+                    {{ (item.productId?.price || 0) * (item.quantity || 1) }} EGP
+                </h1>
+                
+                <button (click)="removeItem(i)" class="text-red-600 font-bold px-4 hover:scale-125 transition">
+                    X
+                </button>
+            </div>
+        }
     </div>
 
     <div class="flex justify-center items-center gap-20 md:gap-160">
-        <h1 class="text-white">Total Price</h1>
-
-        <button
-            type="submit"
-            class="bg-[#D93B3B] px-6 py-2 rounded-md text-white
-            hover:bg-[#D93B3B] hover:scale-105 hover:cursor-pointer transition">
+        <h1 class="text-white text-xl">Total Price: <b>{{ totalPrice || 0 }} EGP</b></h1>
+        <button class="bg-[#D93B3B] px-6 py-2 rounded-md text-white hover:scale-105 transition">
             Checkout
         </button>
     </div>
-
 </div>
