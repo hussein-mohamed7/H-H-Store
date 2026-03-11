@@ -19,6 +19,7 @@ import { Cart } from './components/cart/cart';
 import { userGuard } from './guards/user-guard';
 import { AdminPage } from './components/admin/admin-page/admin-page';
 import { adminGuard } from './guards/admin-guard';
+import { Signout } from './components/signout/signout';
 export const routes: Routes = [
     {path:'admin',component:AdminPage,children:
       [
@@ -36,7 +37,8 @@ export const routes: Routes = [
     { path: '', component: NavFooterContainer,children:
       [
         {path:'',component:HomePage},
-        { path: 'login', component: LoginPage },
+        {path: 'login', component: LoginPage },
+        {path:'logout',component:Signout},
         {path:"signup",component: SignupPage},
         {path:"categories",component:CategoriesPage},
         {path:"search/:Gender/:Query",component:SearchPage},

@@ -48,4 +48,10 @@ export class AuthService {
   {
     return this.client.get(`http://localhost:8000/verify-email/${Token}`);
   }
+
+
+  // sign out 
+  signOut(){
+    localStorage.clear();
+  }
 }
