@@ -222,11 +222,7 @@ app.get("/signout",(req,res)=>
 app.post("/addProduct",async (req,res)=>
 {
     console.log(req.body.product);
-    for(let product of req.body.products)
-    {
-        let result = await productController.addProduct(product);
-    }
-    
+    let result = await productController.addProduct(product);
     res.send({done:true});
 });
 app.get("/products",async (req,res)=>
