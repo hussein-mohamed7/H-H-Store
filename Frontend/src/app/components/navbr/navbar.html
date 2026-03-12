@@ -2,20 +2,22 @@
   <div class="flex items-center justify-between">
 
           <!-- Logo -->
-          <a routerLink="/"><svg width="120" height="50" viewBox="0 0 120 50" xmlns="http://www.w3.org/2000/svg">
-    <text 
-      x="50%" 
-      y="50%" 
-      font-family="Georgia, 'Times New Roman', serif" 
-      font-size="32" 
-      font-style="italic" 
+          <a routerLink="/">
+    <svg width="120" height="50" viewBox="0 0 120 50" xmlns="http://www.w3.org/2000/svg">
+    <text
+      x="50%"
+      y="50%"
+      font-family="Georgia, 'Times New Roman', serif"
+      font-size="32"
+      font-style="italic"
       font-weight="bold"
-      fill="white" 
-      text-anchor="middle" 
+      fill="white"
+      text-anchor="middle"
       dominant-baseline="central">
       H&amp;H
     </text>
-  </svg></a>
+  </svg>
+</a>
 
           <!-- Search -->
           <div class="hidden md:block w-1/3">
@@ -88,10 +90,14 @@
     src="https://i.pravatar.cc/40"
     class="h-9 w-9 rounded-full cursor-pointer border-2 border-white"
     alt="User"
+    routerLink="/login"
   />
+  @if(checkLoginStatus())
+  {
+    <!-- Dropdown -->
+    <app-signout></app-signout>
+  }
 
-  <!-- Dropdown -->
-<app-signout></app-signout>
 </div>
 
             <!-- Hamburger -->
@@ -171,7 +177,7 @@
 <app-signout></app-signout>
 </div>
 
-        
+
       </div>
 
     </div>

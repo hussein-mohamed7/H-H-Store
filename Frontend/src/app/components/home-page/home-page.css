@@ -1,7 +1,11 @@
 body{
     background-color: #2A858C;
 }
-.test-font
+.logo-font
+{
+  font-family: Georgia, Times New Roman, serif;
+}
+.slogan-font
 {
   font-family: Lucida Handwriting
 }

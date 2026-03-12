@@ -12,7 +12,12 @@ export class Signout {
 constructor(private router:Router,private auth:AuthService){}
 
 signOut(){
-  this.auth.signOut();
-  this.router.navigateByUrl("/login");
+  this.auth.signOut().subscribe(
+    (res)=>
+    {
+      this.router.navigateByUrl("/");
+    }
+  );
+
 }
 }

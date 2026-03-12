@@ -1,0 +1,29 @@
+<div class="flex flex-row justify-between items-center bg-white w-full rounded-2xl p-4 shadow-2xl">
+        <h1>{{username}}</h1>
+
+        <div class="border-l h-8 mx-4"></div>
+
+        <h1>{{email}}</h1>
+
+        <div class="border-l h-8 mx-4"></div>
+
+        <div class="flex gap-4">
+            <button
+            class="rounded text-white px-2 bg-[#2BCE82]
+                  hover:cursor-pointer hover:scale-105
+                  disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+            [disabled]="isActive ? true:false"
+            (click)="activate()">
+            Activate
+          </button>
+
+          <button
+            class="rounded text-white px-2 bg-[#D93B3B]
+                  hover:cursor-pointer hover:scale-105
+                  disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+            [disabled]="isActive ? false:true"
+            (click)="deactivate()">
+            Deactivate
+          </button>
+        </div>
+</div>

@@ -7,7 +7,7 @@ async function getAll()
 }
 async function getAllForAdmin(ID)
 {
-    return await Users.find({$and:[{isAdmin:false},{_id:{$ne:new mongoose.Types.ObjectId(ID)}}]}).lean();
+    return await Users.find({$and:[{isAdmin:false},{_id:{$ne:new mongoose.Types.ObjectId(ID)}}]},{username:1,email:1,isActive:1}).lean();
 }
 async function getByID(ID)
 {
@@ -19,14 +19,14 @@ async function getByEmail(Email)
     console.log(Email);
     return await Users.find({email:Email}).lean();
 }
-async function deleteByID(ID)
-{
-
+async function changeUserStatus(Status,Email)
+{   
+    return await Users.updateOne({email:Email},{$set:{isActive:Status}});
 }
-async function addUser(user)
+async function addUser(User)
 {
     // console.log(user);
-    return await Users.create(user);
+    return await Users.create(User);
 }
 async function verify(ID)
 {
@@ -38,7 +38,7 @@ userController.getAll = getAll;
 userController.getAllForAdmin = getAllForAdmin;
 userController.getByID = getByID;
 userController.addUser = addUser;
-userController.deleteByID = deleteByID;
+userController.changeUserStatus = changeUserStatus;
 userController.getByEmail = getByEmail;
 userController.verify = verify;
 module.exports = {userController};

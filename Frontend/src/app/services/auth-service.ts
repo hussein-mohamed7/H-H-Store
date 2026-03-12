@@ -50,8 +50,11 @@ export class AuthService {
   }
 
 
-  // sign out 
-  signOut(){
-    localStorage.clear();
+  // sign out
+  signOut():Observable<any>
+  {
+    this._isAdmin.set(false);
+    this._loggedIn.set(false);
+    return this.client.get('http://localhost:8000/signout',{withCredentials:true})
   }
 }

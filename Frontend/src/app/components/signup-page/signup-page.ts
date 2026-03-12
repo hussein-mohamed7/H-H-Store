@@ -41,7 +41,7 @@ export class SignupPage implements OnInit {
   }
   signup()
   {
-    const user = {user:this.username?.value,email:this.email?.value,password:this.password?.value};
+    const user = {username:this.username?.value,email:this.email?.value,password:this.password?.value};
     this.client.post("http://localhost:8000/signup",user).subscribe(
       (res:any)=>
       {

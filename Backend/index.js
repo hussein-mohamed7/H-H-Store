@@ -43,13 +43,27 @@ app.get("/users-for-admin",async( req,res)=>
     if(admin.isAdmin)
     {
         const results = await userController.getAllForAdmin(admin._id);
-        res.send(results);
+        res.send({users:results,denied:false});
     }
     else
     {
         res.send({denied:true});
     }
     
+});
+
+app.patch("/change-user-status",async (req,res)=>
+{
+    const admin = jwt.verify(req.cookies.authToken,process.env.jwtKey);
+    if(admin.isAdmin)
+    {
+        const results = await userController.changeUserStatus(req.body.isActive,req.body.email);
+        res.send({done:true,denied:false});
+    }
+    else
+    {
+        res.send({denied:true});
+    }
 });
 app.get("/users/:ID",async(req,res)=>
 {
@@ -71,9 +85,16 @@ app.post("/login",async(req,res)=>
         else if(await argon2.verify(user.password,req.body.password))
         {
             // Login successful
-            const token = jwt.sign({_id:user._id,username:user.username,isAdmin:user.isAdmin},process.env.jwtKey);
-            res.cookie("authToken", token,{secure:false,httpOnly:true});
-            return res.send({success:true});
+            if(user.isActive) // User is activated.
+            {
+                const token = jwt.sign({_id:user._id,username:user.username,isAdmin:user.isAdmin},process.env.jwtKey);
+                res.cookie("authToken", token,{secure:false,httpOnly:true});
+                return res.send({success:true});
+            }
+            else // User is deactivated
+            {
+                return res.send({success:false,code:4});
+            }
         }
         else // Login unsuccessful
         {

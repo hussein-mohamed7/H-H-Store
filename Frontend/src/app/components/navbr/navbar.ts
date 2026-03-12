@@ -15,7 +15,6 @@ export class Navbar implements OnInit {
   constructor(private router:Router,private auth:AuthService,private p:ProductManager){}
   menuOpen = false;
   isOpen = false;
-
   categories:any[] = [];
   himCategories:any[] = [];
   herCategories:any[] = [];
@@ -53,5 +52,9 @@ export class Navbar implements OnInit {
      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
     this.router.navigateByUrl(`/search/${gender}/${category}`);
     });
+  }
+  checkLoginStatus():boolean
+  {
+    return this.auth.isLoggedIn();
   }
 }
