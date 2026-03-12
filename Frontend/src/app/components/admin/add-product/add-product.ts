@@ -74,7 +74,6 @@ export class AddProduct implements OnInit {
     this.p.add(product).subscribe(
       (res)=>
       {
-        console.log(res);
       }
     );
 

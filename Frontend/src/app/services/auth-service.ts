@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Injectable, signal } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
+import { Observable,lastValueFrom } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -23,17 +23,14 @@ export class AuthService {
       this._isAdmin.set(false);
     });
   }
-  verifyToken()
+  async verifyToken()
   {
-      this.client.get(`http://localhost:8000/verify-token`,{withCredentials:true}).subscribe(
-        (res:any)=>
-        {
-          this._loggedIn.set(res.verified);
-          this._isAdmin.set(res.isAdmin);
-          console.log(this._isAdmin());
-          console.log(this._loggedIn());
-        }
-      )
+      const res:any = await lastValueFrom(this.client.get(`http://localhost:8000/verify-token`,{withCredentials:true}))
+      this._loggedIn.set(res.verified);
+      this._isAdmin.set(res.isAdmin);
+      console.log(this._isAdmin());
+      console.log(this._loggedIn());
+      return [this.isLoggedIn(),this.isAdmin()]
   }
   get isLoggedIn()
   {
