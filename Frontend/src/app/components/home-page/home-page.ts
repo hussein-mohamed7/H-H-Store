@@ -22,7 +22,7 @@ export class HomePage implements OnInit {
       this.p.getAllCategories().subscribe(
         (res)=>
         {
-          this.categories = res;
+          this.categories = res.sort(() => Math.random() - 0.5).slice(0, 19);
           this.c.markForCheck();
         }
       );
