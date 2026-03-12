@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { IProduct } from '../../interfaces/iproduct';
 import { ProductManager } from '../../services/product-manager';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-product-details',
@@ -12,7 +12,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 })
 export class ProductDetails implements OnInit {
   product !: IProduct;
-  constructor(private p:ProductManager,private activate:ActivatedRoute, private c:ChangeDetectorRef){}
+  constructor(private p:ProductManager,private activate:ActivatedRoute, private c:ChangeDetectorRef,private router:Router){}
 getID(){
   return this.activate.snapshot.paramMap.get('id')!;
 }
@@ -25,6 +25,21 @@ getID(){
   });
   }
 
+BUY()
+{
+  if(!this.product?._id) return;
+
+    this.p.addToCart(this.product._id).subscribe({
+        next: (res) => {
+            console.log("Added to cart:", res);
+            this.router.navigateByUrl("/checkout");
+        },
+        error: (err) => {
+            console.error("Failed to add to cart:", err);
+            alert("Failed to add to cart. Make sure you are logged in.");
+        }
+    });
+}
 ADD() {
     if(!this.product?._id) return;
 

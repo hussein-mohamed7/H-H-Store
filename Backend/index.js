@@ -337,7 +337,7 @@ app.delete("/cart/:id", async (req, res) => {
 app.post("/checkout", async(req,res)=>
 {
     // console.log(req.cookies.authToken);
-    if(res.cookies.authToken)
+    if(req.cookies.authToken)
     {
         const user = jwt.verify(req.cookies.authToken,process.env.jwtKey);
         if(user._id)
