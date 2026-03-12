@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ProductManager } from '../../services/product-manager';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
-  imports: [FormsModule],
+  imports: [FormsModule,RouterLink],
   templateUrl: './cart.html',
   styleUrls: ['./cart.css'],
   changeDetection: ChangeDetectionStrategy.OnPush

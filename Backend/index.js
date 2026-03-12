@@ -7,6 +7,7 @@ const argon2 = require("argon2");
 const cors = require("cors");
 const jwt = require("jsonwebtoken")
 const nodemailer = require("nodemailer");
+const stripe = require("stripe")(process.env.stripeKey);
 const productController = require("./controllers/productController")
 const {userController} = require("./controllers/userController");
 const categoryController = require("./controllers/categoryController");
@@ -336,4 +337,36 @@ app.delete("/cart/:id", async (req, res) => {
     }
 });
 
+
+app.post("/checkout", async(req,res)=>
+{
+    // console.log(req.cookies.authToken);
+    if(res.cookies.authToken)
+    {
+        const user = jwt.verify(req.cookies.authToken,process.env.jwtKey);
+        if(user._id)
+        {
+            const paymentIntent = await stripe.paymentIntents.create({
+            amount: Math.floor(req.body.total/52*100),
+            currency: 'usd',
+            automatic_payment_methods: {
+                enabled: true,
+            },
+            });
+
+            res.send({secret:paymentIntent.client_secret,verified:true});
+        }
+        else
+        {
+            res.send({verified:false});
+        }
+    }
+    else
+    {
+         res.send({verified:false});
+    }
+    
+
+
+});
 app.listen(8000);

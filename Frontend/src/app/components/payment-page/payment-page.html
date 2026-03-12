@@ -1,0 +1,96 @@
+<div class="flex max-md:flex-col md:mb-10">
+
+       <form class="w-full" [formGroup]="checkoutForm" (ngSubmit)="pay()">
+        <div class="flex-1 flex items-center justify-center mt-14"> <!--flex-1 is Tailwind shorthand for flex-grow: 1; flex-shrink: 1; flex-basis: 0;-->
+        <div class="bg-white w-full md:w-4/5 rounded-2xl p-6 shadow-2xl overflow-auto">
+        <h1 class="font-bold text-4xl mb-6 text-center">Checkout</h1>
+           <div class="w-full flex justify-center items-center gap-4">
+            <label class="flex items-center cursor-pointer">
+              <input
+                type="radio"
+                value="card"
+                formControlName="selectedMethod"
+                class="hidden peer"
+                (change)="toggleCoD()"
+                >
+              <div class="px-6 py-2 border rounded-lg peer-checked:bg-[#D93B3B] peer-checked:text-white peer-checked:border-transparent border-gray-300 transition-all">
+                Credit Card
+              </div>
+            </label>
+
+            <label class="flex items-center cursor-pointer">
+              <input
+                type="radio"
+                value="cod"
+                formControlName="selectedMethod"
+                class="hidden peer"
+                (change)="toggleCoD()"
+                >
+              <div class="px-6 py-2 border rounded-lg peer-checked:bg-[#D93B3B] peer-checked:text-white peer-checked:border-transparent border-gray-300 transition-all">
+                Cash on Delivery
+              </div>
+            </label>
+          </div>
+
+          <div [style.display]="selectedMethod?.value =='card'?'block':'none'">
+          <label class="block mb-2 mt-4">Card Number<span class="text-red-600">*</span></label>
+          <div id="stripe-card-number" class=" p-2 border-2 rounded-md focus-within:ring-2  focus-within:ring-green-500"></div>
+            <div class="w-full flex gap-3">
+              <div class="w-full">
+                <label class="block mb-2 mt-4">Expiration Date<span class="text-red-600">*</span></label>
+              <div id="stripe-card-date" class=" p-2 border-2 rounded-md focus-within:ring-2  focus-within:ring-green-500"></div>
+              </div>
+              <div class="w-full">
+                <label class="block mb-2 mt-4">CVV<span class="text-red-600">*</span></label>
+                <div id="stripe-card-cvc" class=" p-2 border-2 rounded-md focus-within:ring-2  focus-within:ring-green-500"></div>
+              </div>
+            </div>
+
+          </div>
+
+
+
+
+
+        <h1 class="mt-6 text-3xl">Address</h1>
+
+        <label class="block mb-2 mt-4">Providence<span class="text-red-600">*</span></label>
+        <input type="text" placeholder="***" class="w-full border-2 rounded-md px-4 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]" formControlName="providence">
+
+        <label class="block mb-2 mt-4">Area<span class="text-red-600">*</span></label>
+        <input type="text" placeholder="***" class="w-full border-2 rounded-md px-4 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]" formControlName="area">
+
+        <label class="block mb-2 mt-4">Street<span class="text-red-600">*</span></label>
+        <input type="text" placeholder="***" class="w-full border-2 rounded-md px-4 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]" formControlName="street">
+
+
+        <label class="block mb-2 mt-4">Additional Details</label>
+        <textarea type="text" placeholder="Enter shipping instructions" class="w-full border-2 rounded-md px-4 py-2 text-sm text-black focus:outline-none focus:border-[#D93B3B]" formControlName="instructions"></textarea>
+        @if(paymentFailed)
+        {
+          <div class="w-full flex justify-start pt-2 text-[#D93B3B] text-xs">
+                          Payment Failed.
+          </div>
+        }
+        <button type="submit" class="btn w-full bg-[#D93B3B] py-2 rounded-md mt-2 text-white hover:bg-[#D93B3B]
+                 hover:scale-105 hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                 [disabled]="(selectedMethod?.value == 'card' && (!validNumber || !validCVC || !validDate)) || checkoutForm.invalid"
+        >
+            ADD
+        </button>
+        </div>
+    </div>
+
+    </form>
+
+
+    <div class="w-2/5 flex h-[300px] sticky md:my-14 max-md:mt-2 max-md:w-full max-md:mb-3 max-md:self-center max-md:h-[200px]">
+      <div class="bg-white w-full md:mr-5 rounded-2xl p-6  overflow-auto">
+        <h1 class="text-3xl font-bold pb-3 border-b-1 mb-1">Total: {{total}}</h1>
+        <h2 class="text-xl mb-1">Subtotal: {{subTotal}}</h2>
+        <h2 class="text-xl mb-1" [style.display]="selectedMethod?.value =='cod'?'block':'none'">CoD: 10</h2>
+        <h2 class="text-xl mb-1">Shipping: {{shipping}}</h2>
+        <h2 class="text-xl mb-1">Tax: {{tax}}</h2>
+      </div>
+      </div>
+</div>

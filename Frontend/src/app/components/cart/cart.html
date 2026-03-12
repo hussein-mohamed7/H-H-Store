@@ -4,22 +4,22 @@
 
         @for (item of cartItems; track item._id; let i = $index) {
             <div class="flex justify-evenly items-center gap-2 md:gap-8 bg-[#F5ECE6]">
-                
-                <img [src]="item.productId?.imageURL" 
-                    class="w-28 h-28 m-6 object-cover" 
+
+                <img [src]="item.productId?.imageURL"
+                    class="w-28 h-28 m-6 object-cover"
                     alt="Product">
-                
+
                 <h1 class="font-bold text-black">{{ item.productId?.name || 'Loading...' }}</h1>
-                
-                <input type="number" 
-                    [(ngModel)]="item.quantity" 
+
+                <input type="number"
+                    [(ngModel)]="item.quantity"
                     (ngModelChange)="calculateTotal()"
                     class="w-16 border-4 py-2 rounded-md text-black text-center">
-                
+
                 <h1 class="font-semibold text-black">
                     {{ (item.productId?.price || 0) * (item.quantity || 1) }} EGP
                 </h1>
-                
+
                 <button (click)="removeItem(i)" class="text-red-600 font-bold px-4 hover:scale-125 transition">
                     X
                 </button>
@@ -29,7 +29,7 @@
 
     <div class="flex justify-center items-center gap-20 md:gap-160">
         <h1 class="text-white text-xl">Total Price: <b>{{ totalPrice || 0 }} EGP</b></h1>
-        <button class="bg-[#D93B3B] px-6 py-2 rounded-md text-white hover:scale-105 transition">
+        <button class="bg-[#D93B3B] px-6 py-2 rounded-md text-white hover:scale-105 transition" routerLink="/checkout">
             Checkout
         </button>
     </div>
