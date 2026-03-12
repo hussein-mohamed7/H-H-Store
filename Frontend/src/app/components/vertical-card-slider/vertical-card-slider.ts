@@ -71,6 +71,13 @@ export class VerticalCardSlider implements OnInit, OnDestroy {
 
 
   }
+  resetPages()
+  {
+    this.page=0;
+    this.productCount=0;
+    this.products.set([]);
+    this.loadProducts();
+  }
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();

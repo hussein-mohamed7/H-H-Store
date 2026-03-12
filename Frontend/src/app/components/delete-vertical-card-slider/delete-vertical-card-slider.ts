@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IProduct } from '../../interfaces/iproduct';
 import { ProductManager } from '../../services/product-manager';
@@ -11,6 +11,7 @@ import { Deletecard } from '../deletecard/deletecard';
   styleUrl: './delete-vertical-card-slider.css',
 })
 export class DeleteCardSlider implements OnInit {
+  @Input() query:string="";
  products = signal<IProduct[]>([]);
   productCount!:number;
   page:number=0;
@@ -20,7 +21,7 @@ export class DeleteCardSlider implements OnInit {
   }
   loadProducts():void
   {
-    this.p.getByPage(this.page).subscribe((res)=>
+    this.p.getByPage(this.page,this.query).subscribe((res)=>
       {
         let newProducts = res as any;
         this.products.update((p)=>[...p,...newProducts.products]);
@@ -28,5 +29,11 @@ export class DeleteCardSlider implements OnInit {
         this.page++;
       });
   }
-
+  resetPages()
+  {
+    this.page=0;
+    this.productCount=0;
+    this.products.set([]);
+    this.loadProducts();
+  }
 }

@@ -1,16 +1,16 @@
-<div class="flex flex-col md:flex-row min-h-screen gap-4">
 
-    <div class="flex flex-col justify-center items-center mt-8 gap-8 w-full">
-            <div class="relative border w-3/5   border-gray-300 rounded-md">
-            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 hover:cursor-pointer hover:text-[#D93B3B]"></i>
-            <input
-                type="text"
-                placeholder="Search products..."
-                class="w-full rounded-md pl-10 pr-4 py-2 text-sm text-white outline-none focus:ring-2 focus:text-black "
-            />
-            </div>
-        <div>
-            <app-vertical-card-slider cardRouteBaseLink="/admin/update/product"></app-vertical-card-slider>
+<div class="flex flex-col justify-center items-center mt-8 gap-8 w-full">
+        <div class="relative border w-3/5   border-gray-300 rounded-md">
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 hover:cursor-pointer hover:text-[#D93B3B]" (click)="search()"></i>
+        <input
+            type="text"
+            placeholder="Search products..."
+            class="w-full rounded-md pl-10 pr-4 py-2 text-sm text-white outline-none focus:ring-2 focus:text-black "
+            [(ngModel)]="query"
+            (keyup.enter)="search()"
+        />
         </div>
+    <div>
+        <app-vertical-card-slider #slider [query]="query" cardRouteBaseLink="/admin/update/product"></app-vertical-card-slider>
     </div>
 </div>
