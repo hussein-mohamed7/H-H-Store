@@ -89,11 +89,11 @@ getID(){
     this.p.update(this.id,this.adminUpdateProduct.value).subscribe(
       (res)=>
       {
-        console.log(this.adminUpdateProduct.value);
+        alert("Product updated successfully.");
+        this.router.navigate(['/update']);
       }
     );
-    alert("Product updated successfully.");
-    this.router.navigate(['/update']);
+
   }
 
 }
